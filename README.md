@@ -15,7 +15,7 @@ Web application that functions as a social media site for users to share goals a
 
 ### Persona
 * User 1: Someone who has a goal they want to accomplish and wants extra accountability/motivation to follow through
-*User 2: Someone who loves to wager and wants to place bets on other people’s goals
+* User 2: Someone who loves to wager and wants to place bets on other people’s goals
 
 ### Summary of MVP
 The minimum viable product will allows users to create an account, post and share goals, and follow other users’ goals to track the progress.  

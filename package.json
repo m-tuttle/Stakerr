@@ -1,0 +1,20 @@
+{
+  "name": "Project-two",
+  "version": "1.0.0",
+  "description": "* Mike B.\r * Mike T.\r * Jeremy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-tuttle/Project-two.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/m-tuttle/Project-two/issues"
+  },
+  "homepage": "https://github.com/m-tuttle/Project-two#readme"
+}
