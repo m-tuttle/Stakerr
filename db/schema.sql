@@ -7,6 +7,7 @@ CREATE TABLE users (
   email VARCHAR(45) NOT NULL,
   phone INT NOT NULL,
   user_pw VARCHAR(45) NOT NULL,
+  credits INTEGER DEFAULT 500,
   PRIMARY KEY (id)
 );
 
@@ -16,6 +17,7 @@ CREATE TABLE goals (
   goal_text VARCHAR(45) NOT NULL,
   goal_start DATE NOT NULL,
   goal_end DATE NOT NULL,
+  complete BOOLEAN DEFAULT 0,
   PRIMARY KEY (id)
 );
 
