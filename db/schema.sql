@@ -1,11 +1,13 @@
-DROP DATABASE IF EXISTS project_db
-USE project_db
+DROP DATABASE IF EXISTS project_db;
+CREATE DATABASE project_db;
+
+USE project_db;
 
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
-  user_name VARCHAR(45) NOT NULL,
+  user VARCHAR(45) NOT NULL,
   email VARCHAR(45) NOT NULL,
-  phone INT NOT NULL,
+  phone VARCHAR(10) NOT NULL,
   user_pw VARCHAR(45) NOT NULL,
   credits INTEGER DEFAULT 500,
   PRIMARY KEY (id)
