@@ -5,24 +5,27 @@
                 <span class="card-title">New User</span>
 
             </div>
-            <div class="card-action">
-                <input placeholder="ENTER ID" id="user_name" type="text" class="validate">
-                <label for="username">User Name</label>
-                <br>
-                <input placeholder="ENTER PASSWORD" id="user_pw" type="password" class="validate">
-                <label for="password">Password</label>
-                <br>
-                <input placeholder="ENTER ID" id="email" type="email" class="validate">
-                <label for="username">E-mail address</label>
-                <br>
-                <input placeholder="ENTER PASSWORD" id="phone" type="text" class="validate">
-                <label for="password">Phone</label>
-                <br>
-                <a class="waves-effect waves-light btn" id="signUpButton">Create Account!</a>
-                <br>
-                <br>
+            <form action="/newuser" method="POST">
+                <div class="card-action">
+                    <input placeholder="ENTER USER NAME" name="user_name" type="text" class="validate">
+                    <label for="username">User Name</label>
+                    <br>
+                    <input placeholder="ENTER PASSWORD" name="user_pw" type="password" class="validate">
+                    <label for="password">Password</label>
+                    <br>
+                    <input placeholder="ENTER EMAIL" name="email" type="email" class="validate">
+                    <label for="username">E-mail address</label>
+                    <br>
+                    <input placeholder="ENTER PHONE" name="phone" type="text" class="validate">
+                    <label for="password">Phone</label>
+                    <br>
+                    <a class="waves-effect waves-light btn" id="signUpButton">Create Account!</a>
+                </div>
+            </form>
+            <br>
+            <br>
 
-            </div>
+
         </div>
     </div>
 </div>
