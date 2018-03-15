@@ -1,8 +1,9 @@
-DROP DATABASE IF EXISTS project_db
-CREATE DATABASE project_db
-USE project_db
+DROP DATABASE IF EXISTS project_db;
+CREATE DATABASE project_db;
 
-CREATE TABLE users (
+USE project_db;
+
+CREATE TABLE users(
   id INT NOT NULL AUTO_INCREMENT,
   user_name VARCHAR(45) NOT NULL,
   email VARCHAR(45) NOT NULL,
@@ -12,7 +13,7 @@ CREATE TABLE users (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE goals (
+CREATE TABLE goals(
   user_id INT NOT NULL,
   id INT NOT NULL AUTO_INCREMENT,
   goal_text VARCHAR(45) NOT NULL,
@@ -22,7 +23,7 @@ CREATE TABLE goals (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE wagers (
+CREATE TABLE wagers(
   id INT NOT NULL AUTO_INCREMENT,
   wager_amount INT NOT NULL,
   wager_fill INT NOT NULL,
