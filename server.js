@@ -47,6 +47,12 @@ app.get("/create", function (req, res) {
     })
 })
 
+// login page
+app.get("/login", function (req, res) {
+    res.render("login")
+})
+
+
 // new user landing page
 app.get("/newuser", function (req, res) {
     res.render("newuser");
