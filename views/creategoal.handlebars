@@ -1,0 +1,63 @@
+<div class="container">
+    <h4>Create a Goal</h4>
+    <div class="divider"></div><br>
+    <div class="row">
+        <div class="col s6">
+        <form method="POST">
+            <p><b>Task</b></p>
+            <input type="text" name="task"></input><br>
+            <p><b>Maximum Stake</b></p>
+            <input type="number" name="stake"></input><br><br>
+            <p><b>End Date</b>
+             <!-- Dropdown Trigger -->
+            <a class='dropdown-button btn' href='#' data-activates='dropdown1' id="timeframe" style="float:right">Timeframe</a>
+
+            <!-- Dropdown Structure -->
+            <ul id='dropdown1' class='dropdown-content'>
+                <li><a href="#!" id="shortTerm">Short Term</a></li>
+                <li class="divider"></li>
+                <li><a href="#!" id="longTerm">Long Term</a></li>
+            </ul>
+        </p>
+            <input id="timeframeEntry" type="time" name="endDate"></input><br><br>
+            <p><b>Description</b></p>
+            <input type="text" name="description"></input><br><br><br>
+            <button class="btn modal-trigger" data-target="modal1" id="mdl1" type="submit" style="width: 100%">Submit</button>
+        </form>
+        </div>
+
+        <div class="col s2"></div>
+
+        <div class="col s4"><img class="materialboxed" src="http://via.placeholder.com/185x185" style="margin-left: auto; margin-right: auto">
+            <p>
+                <ul id="mid">
+                    <li><h5><a href="#">{{user}}</a></h5></li><br>
+                    <li>{{credits}} Credits Available</li>
+                    <li><a href="#">Add Credits</a></li>
+                </ul>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Modals -->
+
+<div id="modal1" class="modal">
+        <div class="modal-content">
+          <h4>Please review your goal</h4><br>
+          <div class="row">
+                <p>
+                    <ul>
+                        <li><span id="goal">Raise $10,000 for charity.</span></li><br>
+                        <li><b>Max Stake Amount: 10</b></li>
+                        <li><b>Completed by 1/1/2019</b></li>
+                        <li><b>Your Remaining Balance: 490</b></li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="Materialize.toast('Goal successfully created', 4000)">Create</a>
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+      </div>

@@ -33,7 +33,17 @@ app.get("/myaccount", function (req, res) {
     
     connection.query(query, function (err, data) {
         if (err) throw err;
-        res.render("accountview", data[0])
+        res.render("accountview", {"goals": data})
+    })
+})
+
+// create goal display route
+app.get("/create", function (req, res) {
+    var query = "SELECT * FROM users WHERE id=1";
+
+    connection.query(query, function (err, data) {
+        if (err) throw err;
+        res.render("creategoal", {"goals": data})
     })
 })
 
