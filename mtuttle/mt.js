@@ -17,7 +17,9 @@ connection.connect(function (err) {
     console.log("connected as id " + connection.threadId);
 });
 
-var query = "SELECT * FROM goals"
+// query to grab user name and goal text for all uncompleted goals (goal feed display?)
+var query = "SELECT u.user, g.goal_text FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.complete=0"
+
 connection.query(query, function (err, data) {
     if (err) throw err;
     console.log(data);

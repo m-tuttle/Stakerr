@@ -1,0 +1,43 @@
+<div id="feedGoals">
+    {{#each goals}}
+    <div class="row">
+        <div class="card-panel">
+            <div class="row">
+                <img class="materialboxed" src="http://via.placeholder.com/150x150" id="info">
+                <p style="float: left">
+                    <ul>
+                        <li>
+                            <i>
+                                <span id="username">{{user}}</span>
+                            </i>
+                        </li>
+                        <li>
+                            <span id="goal">{{goal_text}}</span>
+                        </li>
+                        <br>
+                        <li>
+                            <i>About
+                                <span id="endDate">10 minutes </span>remaining</i>
+                        </li>
+                    </ul>
+                </p>
+            </div>
+            <div class="row">
+                <div class="col s4">
+                    <button class="btn modal-trigger" data-target="modal1" id="mdl1" style="margin-left: 12%">Stake</button>
+                </div>
+                <div class="col s4">
+                    <p>
+                        <i>240 credits remaining</i>
+                    </p>
+                </div>
+                <div class="col s4">
+                    <button class="btn" style="float:right">Follow</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {{/each}}
+
+   
