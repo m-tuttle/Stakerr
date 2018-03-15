@@ -17,12 +17,23 @@ var hbs = exphbs.create({
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
+// goals feed route (displays all the active goals)
 app.get("/", function (req, res) {
     var query = "SELECT u.user, g.goal_text FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.complete=0"
 
     connection.query(query, function (err, data) {
         if (err) throw err;
         res.render("goalsfeed", {"goals": data})
+    })
+})
+
+// my account view display route
+app.get("/myaccount", function (req, res) {
+    var query = "SELECT * FROM users WHERE id=1"
+    
+    connection.query(query, function (err, data) {
+        if (err) throw err;
+        res.render("accountview", data[0])
     })
 })
 
