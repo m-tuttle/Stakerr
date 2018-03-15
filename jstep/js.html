@@ -41,33 +41,34 @@
 <!-- entry 1 -->
 
 <div id="feedGoals">
-        <div class="row"> 
-           
-                <div class="card-panel">
-                    <div class="row">
-                    <img class="materialboxed" src="http://via.placeholder.com/150x150" id="info">
-                    <p style="float: left">
-                        <ul>
-                            <li><i><span id="username">james123</span></i></li>
-                            <li><span id="goal">Win Super Smash Brothers Tournament with Donkey Kong or Pikachu.</span></li><br>
-                            <li><i>About <span id="endDate">10 minutes </span>remaining</i></li>
-                        </ul>
-                    </p>
+    <div class="row"> 
+        <div class="col s2"></div>
+            <div class="card-panel col s8">
+                <div class="row">
+                <img class="materialboxed" src="http://via.placeholder.com/120x120" id="info">
+                <p style="float: left">
+                    <ul>
+                        <li><i><span id="username">jim123</span></i></li>
+                        <li><span id="goal">Win Super Smash Brothers Tournament with Donkey Kong or Pikachu.</span></li><br>
+                        <li><i>About <span id="endDate">10 minutes </span>remaining</i></li>
+                        <li><b><span id="following">0</span> Following</b></li>
+                    </ul>
+                </p>
+                </div>
+                <div class="row">
+                    <div class="col s4">
+                    <button class="btn modal-trigger" data-target="modal1" id="mdl1" style="margin-left: 8%">Stake</button>
                     </div>
-                    <div class="row">
-                        <div class="col s4">
-                        <button class="btn modal-trigger" data-target="modal1" id="mdl1" style="margin-left: 12%">Stake</button>
-                        </div>
-                        <div class="col s4">
-                        <p><i>240 credits remaining</i></p>
-                        </div>
-                        <div class="col s4">
-                        <button class="btn" style="float:right">Follow</button>
-                        </div>
+                    <div class="col s4">
+                    <p><i>240 credits remaining</i></p>
+                    </div>
+                    <div class="col s4">
+                    <button class="btn" style="float:right"><span id="follow"> Follow</span></button>
                     </div>
                 </div>
-            
-        </div>
+            </div>
+        <div class="col s2"></div>
+    </div>
 
 <!-- entry 2 -->
 
@@ -92,7 +93,7 @@
                             <p><i>120 credits remaining</i></p>
                             </div>
                             <div class="col s4">
-                            <button class="btn" style="float:right">Follow</button>
+                            <button class="btn" style="float:right"><span id="follow"> Follow</span></button>
                             </div>
                         </div>
                     </div>
@@ -122,13 +123,13 @@
                                 <p><i>60 credits remaining</i></p>
                                 </div>
                                 <div class="col s4">
-                                <button class="btn" style="float:right">Follow</button>
+                                <button class="btn" style="float:right"><span id="follow"> Follow</span></button>
                                 </div>
                             </div>
                         </div>
                     <div class="col s2"></div>
                 </div>
-    </div>
+</div>
 
     <!-- modals -->
 
@@ -177,7 +178,7 @@
 
 
     <footer class="page-footer teal">
-        <p>Copyright © 2018 Stakerr</p>
+        <p id="mid">Copyright © 2018 Stakerr</p>
     </footer>
     
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
