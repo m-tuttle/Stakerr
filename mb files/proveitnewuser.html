@@ -25,9 +25,9 @@
             <div class="card-action">
                 <input placeholder="ENTER ID" id="user_name" type="text" class="validate">
                 <label for="username">User Name</label><br>
-                <input placeholder="ENTER PASSWORD" id="user_pw" type="text" class="validate">
+                <input placeholder="ENTER PASSWORD" id="user_pw" type="password" class="validate">
                 <label for="password">Password</label><br>
-                <input placeholder="ENTER ID" id="email" type="text" class="validate">
+                <input placeholder="ENTER ID" id="email" type="email" class="validate">
                 <label for="username">E-mail address</label><br>
                 <input placeholder="ENTER PASSWORD" id="phone" type="text" class="validate">
                 <label for="password">Phone</label><br>
@@ -50,7 +50,7 @@
     </body>
   </html>
   <style>
-  #username, #password {
+  #user_name, #user_pw, #email, #phone {
       color: white;
   }
   
@@ -61,8 +61,31 @@
   </style>
         
   <script>
-  $("#submit").on("click", function () {
-alert("asdfasdfsdf")
+
+    
+
+ $('#signUpButton').on("click", function () {
+
+//validation inside the on-click function. there is probably a cleaner way to do this but it's working.
+    if ($("#user_name").val().trim() === '' || ($("#user_pw").val().trim() === '') || ($("#phone").val().trim() === '') || ($("#email").val().trim() === ''))  {
+      alert('Please complete all fields.');
+      location.reload()
+    }
+
+    else {
+
+var newUser = {
+  user_name: $("#user_name").val(),
+  email: $("#email").val(),
+  phone: $("#phone").val(),
+  user_pw_hash: $("#user_pw").val()
+  
+}
+$.post('userslist.js', newUser);
+
+console.log(newUser)
+}
   })
+
 
 </script>

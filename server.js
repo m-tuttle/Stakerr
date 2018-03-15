@@ -47,6 +47,11 @@ app.get("/create", function (req, res) {
     })
 })
 
+// new user landing page
+app.get("/newuser", function (req, res) {
+    res.render("newuser");
+})
+
 // set server to listen 
 var port = process.env.PORT || 3000;
 app.listen(port);
