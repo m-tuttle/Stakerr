@@ -8,7 +8,7 @@ body {
     flex: 1 0 auto;
   }
 
-h5 p, h6, #mid {
+h5, p, h6, #mid {
     text-align: center;
 }
 
