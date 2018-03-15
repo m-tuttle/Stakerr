@@ -58,6 +58,15 @@ app.get("/newuser", function (req, res) {
     res.render("newuser");
 })
 
+// post route for new user creation
+app.post("/newuser", function (req, res) {
+    res.redirect("/login");
+    var query = "INSERT INTO users SET ?"
+    connection.query(query, req.body, function (err, data) {
+        if (err) throw err;
+    })
+})
+
 // set server to listen 
 var port = process.env.PORT || 3000;
 app.listen(port);
