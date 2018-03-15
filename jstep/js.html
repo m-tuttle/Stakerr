@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Stakerr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Compiled and minified CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="js.css" />
+</head>
+<body>
+    
+    <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper teal">
+                    <a href="#!" class="brand-logo">Stakerr</a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="js.html">Home</a></li>
+                        <li><a href="jsmyaccount.html">My Account</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                    
+                </div>
+            </nav>
+    </div>
+
+    <div class="row">
+        <div class="col s2">
+            <!-- <button class="btn" id="addRow">Add</button> -->
+        </div>
+        <div class="col s8">
+        <h6>
+        <p>"<span id="quote"></span>" - <i><span id="author"></span></i></p>
+        </h6>
+        </div>
+        <div class="col s2"></div>
+    </div>
+
+<!-- entry 1 -->
+
+<div id="feedGoals">
+        <div class="row"> 
+           
+                <div class="card-panel">
+                    <div class="row">
+                    <img class="materialboxed" src="http://via.placeholder.com/150x150" id="info">
+                    <p style="float: left">
+                        <ul>
+                            <li><i><span id="username">james123</span></i></li>
+                            <li><span id="goal">Win Super Smash Brothers Tournament with Donkey Kong or Pikachu.</span></li><br>
+                            <li><i>About <span id="endDate">10 minutes </span>remaining</i></li>
+                        </ul>
+                    </p>
+                    </div>
+                    <div class="row">
+                        <div class="col s4">
+                        <button class="btn modal-trigger" data-target="modal1" id="mdl1" style="margin-left: 12%">Stake</button>
+                        </div>
+                        <div class="col s4">
+                        <p><i>240 credits remaining</i></p>
+                        </div>
+                        <div class="col s4">
+                        <button class="btn" style="float:right">Follow</button>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+<!-- entry 2 -->
+
+        <div class="row"> 
+                <div class="col s2"></div>
+                    <div class="card-panel col s8">
+                        <div class="row">
+                        <img class="materialboxed" src="http://via.placeholder.com/120x120" id="info">
+                        <p style="float: left">
+                            <ul>
+                                <li><i><span id="username">bill422</span></i></li>
+                                <li><span id="goal">Travel to all 50 states of the USA and take a picture with the state's mascot at the capitol building wearing a navy suit.</span></li><br>
+                                <li><i>About <span id="endDate">20 minutes </span>remaining</i></li>
+                            </ul>
+                        </p>
+                        </div>
+                        <div class="row">
+                            <div class="col s4">
+                            <button class="btn modal-trigger" data-target="modal1" id="mdl1" style="margin-left: 8%">Stake</button>
+                            </div>
+                            <div class="col s4">
+                            <p><i>120 credits remaining</i></p>
+                            </div>
+                            <div class="col s4">
+                            <button class="btn" style="float:right">Follow</button>
+                            </div>
+                        </div>
+                    </div>
+                <div class="col s2"></div>
+            </div>
+
+<!-- entry 3 -->
+
+            <div class="row"> 
+                    <div class="col s2"></div>
+                        <div class="card-panel col s8">
+                            <div class="row">
+                                    <img class="materialboxed" src="http://via.placeholder.com/120x120" id="info">
+                            <p style="float: left">
+                                <ul>
+                                    <li><i><span id="username">mike846</span></i></li>
+                                    <li><span id="goal">Raise $10,000 for charity.</span></li><br>
+                                    <li><i>About <span id="endDate">20 minutes </span>remaining</i></li>
+                                </ul>
+                            </p>
+                            </div>
+                            <div class="row">
+                                <div class="col s4">
+                                <button class="btn modal-trigger" data-target="modal1" id="mdl1" style="margin-left: 8%">Stake</button>
+                                </div>
+                                <div class="col s4">
+                                <p><i>60 credits remaining</i></p>
+                                </div>
+                                <div class="col s4">
+                                <button class="btn" style="float:right">Follow</button>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="col s2"></div>
+                </div>
+    </div>
+
+    <!-- modals -->
+
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Are you sure?</h4>
+      <div class="row">
+            <a href="https://placeholder.com"><img src="http://via.placeholder.com/120x120" id="info"></a>
+            <p style="float: left">
+                <ul>
+                    <li><i><span id="username">mike846</span></i></li>
+                    <li><span id="goal">Raise $10,000 for charity.</span></li><br>
+                    <li><b>Stake Amount: 10</b></li>
+                    <li><b>Your balance: 500</b></li>
+                    
+                </ul>
+            </p>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="Materialize.toast('Stake successfully placed', 4000)">Stake</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+    </div>
+  </div>
+
+
+      <!-- Element Showed -->
+
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a id="menu" class="btn btn-floating btn-large teal"  onclick="$('.tap-target').tapTarget('open')"><i class="material-icons">menu</i></a>
+      </div>
+
+  <!-- Tap Target Structure -->
+  <div class="tap-target teal" data-activates="menu">
+    <div class="tap-target-content white-text">
+      <h5>Your Balance</h5>
+      <h6>500</h6>
+      <br>
+      <h5>Recently Followed</h5>
+      <button class="btn white black-text" id="mid">User 1 Stake 1</button>
+      <button class="btn white black-text" id="mid">User 2 Stake 1</button>
+      <button class="btn white black-text" id="mid">User 3 Stake 1</button>
+      <p></p>
+    </div>
+  </div>
+
+
+    <footer class="page-footer teal">
+        <p>Copyright © 2018 Stakerr</p>
+    </footer>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="js.js"></script>
+</body>
+</html>
