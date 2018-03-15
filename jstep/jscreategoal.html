@@ -32,24 +32,34 @@
     <div class="row">
         <div class="col s6">
         <form method="POST">
-            <p><b>Task</b></p>
-            <input type="text" name="task"></input><br>
-            <p><b>Maximum Stake</b></p>
-            <input type="number" name="stake"></input><br><br>
-            <p><b>End Date</b>
-             <!-- Dropdown Trigger -->
-            <a class='dropdown-button btn' href='#' data-activates='dropdown1' id="timeframe" style="float:right">Timeframe</a>
+            <div class="input-field">
+                <input type="text" id="task" data-length="50" class="validate" ></input>
+                <label for="task" data-success="">Task <span id="star">*</span></label>
+            </div><br>
+            
+            <div class="input-field">
+               <a class='dropdown-button btn' href='#' data-activates='dropdown1' id="timeframe" style="float:right">Timeframe</a>
+               
+                <ul id='dropdown1' class='dropdown-content'>
+                   <li><a href="#!" id="shortTerm">Short Term</a></li>
+                   <li class="divider"></li>
+                   <li><a href="#!" id="longTerm">Long Term</a></li>
+                </ul>
+            
+                <input type="time" id="timeframeEntry" name="endDate" class="validate"></input>
+                <label for="timeframeEntry">End Date <span id="star">*</span></label><br><br>
+            </div>
+            
+            <div class="input-field">
+                <input type="number" id="stake" class="validate"></input>
+                <label for="stake">Maximum Stake <span id="star">*</span></label><br><br>
+            </div>
 
-            <!-- Dropdown Structure -->
-            <ul id='dropdown1' class='dropdown-content'>
-                <li><a href="#!" id="shortTerm">Short Term</a></li>
-                <li class="divider"></li>
-                <li><a href="#!" id="longTerm">Long Term</a></li>
-            </ul>
-        </p>
-            <input id="timeframeEntry" type="time" name="endDate"></input><br><br>
-            <p><b>Description</b></p>
-            <input type="text" name="description"></input><br><br><br>
+            <div class="input-field">
+                    <input type="text" id="description" data-length="200" class="validate"></input>
+                    <label for="description">Description</label>
+            </div><br>
+
             <button class="btn modal-trigger" data-target="modal1" id="mdl1" type="submit" style="width: 100%">Submit</button>
         </form>
         </div>
@@ -72,14 +82,13 @@
 
 <div id="modal1" class="modal">
         <div class="modal-content">
-          <h4>Please review your goal</h4><br>
+          <h5>Please review your goal</h5><br>
           <div class="row">
-                <p>
                     <ul>
-                        <li><span id="goal">Raise $10,000 for charity.</span></li><br>
-                        <li><b>Max Stake Amount: 10</b></li>
-                        <li><b>Completed by 1/1/2019</b></li>
-                        <li><b>Your Remaining Balance: 490</b></li>
+                        <li><p>Raise $10,000 for charity.</p></li><br>
+                        <li><p>Max Stake Amount: <b>10</b></p></li>
+                        <li><p>Completed by <b>1/1/2019</b></p></li>
+                        <li><p>Your Remaining Balance: <b>490</b></p></li>
                     </ul>
                 </p>
             </div>
@@ -88,7 +97,26 @@
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="Materialize.toast('Goal successfully created', 4000)">Create</a>
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
         </div>
-      </div>
+</div>
+
+<div id="modal2" class="modal">
+        <div class="modal-content">
+          <h5>Please fill out the required fields and try again.</h5><br>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+</div>
+
+<div id="modal3" class="modal">
+        <div class="modal-content">
+          <h5>Insufficient balance</h5><br>
+          <a href="#"><p>Click here to purchase additional credits</p></a>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+</div>
 
 	<footer class="page-footer teal">
         <p id="mid">Copyright © 2018 Stakerr</p>

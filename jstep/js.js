@@ -13,8 +13,25 @@ $.ajax({
 // Modal activation
 
 $(document).ready(function(){
-    $('.modal').modal();
+    $("#mdl1").on("click", function() {
+        var required = ($("#task").val() === "" || $("#timeframeEntry").val() === "" || $("#stake").val() === "");
+        var maxStake = 500;
+        if(required){
+            $(".modal-trigger").attr("data-target", "modal2");
+            $('#modal2').modal();
+        }
+        else if($("#stake").val() > maxStake) {
+            $(".modal-trigger").attr("data-target", "modal3");
+            $('#modal3').modal();
+        }
+        else {
+            $(".modal-trigger").attr("data-target", "modal1");
+            $('#modal1').modal();
+        }
+        })
+    
   });
+
 
 // Click functions
 
@@ -33,6 +50,13 @@ $("#shortTerm, #longTerm").on("click", function() {
         $("#timeframeEntry").attr("type", "time")
     }
 })
+
+$(document).ready(function(){
+    $('.carousel').carousel();
+  });
+
+
+$("#about").attr('href', 'file:///Users/jeremystepanovich/Project-two/jstep/jsviewgoal.html')
 
 // Testing append on feed
 

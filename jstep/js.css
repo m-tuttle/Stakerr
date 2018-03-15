@@ -16,3 +16,7 @@ h5, p, h6, #mid {
     float: left;
     margin: 0% 3% 0% 3%;
 }
+
+#star {
+    color: red;
+}
