@@ -56,8 +56,6 @@ $(document).ready(function(){
   });
 
 
-$("#about").attr('href', 'file:///Users/jeremystepanovich/Project-two/jstep/jsviewgoal.html')
-
 // Testing append on feed
 
 // $("#addRow").on("click", function() {
