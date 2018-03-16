@@ -71,13 +71,14 @@ app.get("/create", function (req, res) {
 app.post("/create", function (req, res) {
     var query = "INSERT INTO goals SET ?"
     var goal_start = new Date()
-    goal_start = goal_start.toLocaleDateString("en-US")
     connection.query(query,
         {
             "user_id": req.session.user_id,
             "goal_text": req.body.goal_text,
-            "goal_start": "2018/3/15",
-            "goal_end": "2018/3/22"
+            "goal_start": goal_start,
+            "goal_end": new Date(),
+            "max_wager": req.body.max_wager,
+            "descript": req.body.descript
         },
         function (err, data) {
             if (err) throw err

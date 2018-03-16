@@ -3,9 +3,9 @@
     <div class="divider"></div><br>
     <div class="row">
         <div class="col s6">
-        <form method="POST">
+        <form action="/create" method="POST">
             <div class="input-field">
-                <input type="text" id="task" data-length="50" class="validate" required>
+                <input type="text" id="task" data-length="50" class="validate" required name="goal_text">
                 <label for="task" data-success="">Task <span id="star">*</span></label>
             </div><br>
             
@@ -18,17 +18,17 @@
                    <li><a href="#!" id="longTerm">Long Term</a></li>
                 </ul>
             
-                <input type="time" id="timeframeEntry" name="endDate" class="validate" required>
+                <input type="time" id="timeframeEntry" name="endDate" class="validate" required name="goal_end">
                 <label for="timeframeEntry">End Date <span id="star">*</span></label><br><br>
             </div>
             
             <div class="input-field">
-                <input type="number" id="stake" class="validate" required>
+                <input type="number" id="stake" class="validate" required name="max_wager">
                 <label for="stake">Maximum Stake <span id="star">*</span></label><br><br>
             </div>
 
             <div class="input-field">
-                    <input type="text" id="description" data-length="200" class="validate"></input>
+                    <input type="text" id="description" data-length="200" class="validate" name="descript"></input>
                     <label for="description">Description</label>
             </div><br>
 
