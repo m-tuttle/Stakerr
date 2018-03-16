@@ -19,6 +19,7 @@ CREATE TABLE goals(
   goal_text VARCHAR(50) NOT NULL,
   goal_start DATE NOT NULL,
   goal_end DATE NOT NULL,
+  raised INT DEFAULT 0,
   max_wager INT NOT NULL,
   descript VARCHAR (250),
   fol INT DEFAULT 0,

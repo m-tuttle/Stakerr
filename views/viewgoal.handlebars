@@ -1,5 +1,5 @@
 <div class="container">
-    <br><a href="js.html"><p class="teal-text" style="float: left"><i class="material-icons">arrow_back</i> Back</p></a>
+    <br><a href="/"><p class="teal-text" style="float: left"><i class="material-icons">arrow_back</i> Back</p></a>
     <h4 class="teal-text" id="mid">About this goal</h4><br>
     <div class="col s12 m7">
             <div class="card horizontal">
@@ -9,11 +9,11 @@
               <div class="card-stacked">
                 <div class="card-content">
                     <ul>
-                        <li><i><span id="username">{{user_id}}</span></i></li>
-                        <li><span id="goal">{{goal_text}}</span></li><br>
-                        <li>{{descript}}</li><br>
-                        <li><i>Ends on <span id="endDate">{{end_date}}</span></i></li>
-                        <li><b><span id="following">{{fol}}</span> Following</b></li>
+                        <li><i><span id="username">{{view.user}}</span></i></li>
+                        <li><span id="goal">{{view.goal_text}}</span></li><br>
+                        <li>{{view.descript}}</li><br>
+                        <li><i>Ends on <span id="endDate">{{view.end_date}}</span></i></li>
+                        <li><b><span id="following">{{view.fol}}</span> Following</b></li>
                     </ul>
                 </div>
                 <div class="card-action">
@@ -30,7 +30,7 @@
     <div class="progress">
             <div class="determinate" id="progressBarView"></div>
     </div>
-    <p class="center-align teal-text"><span id="prgsView"></span></p>
+    <p class="center-align teal-text"><span id="prgsView">{{view.raised}} / {{view.max_wager}}</span></p>
 
     <br>
 
