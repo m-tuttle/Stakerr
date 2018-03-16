@@ -16,10 +16,12 @@ CREATE TABLE users(
 CREATE TABLE goals(
   user_id INT NOT NULL,
   id INT NOT NULL AUTO_INCREMENT,
-  goal_text VARCHAR(45) NOT NULL,
+  goal_text VARCHAR(50) NOT NULL,
   goal_start DATE NOT NULL,
   goal_end DATE NOT NULL,
   max_wager INT NOT NULL,
+  descript VARCHAR (250),
+  fol INT DEFAULT 0,
   complete BOOLEAN DEFAULT 0,
   PRIMARY KEY (id)
 );

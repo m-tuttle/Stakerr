@@ -1,0 +1,75 @@
+<div class="container">
+    <br><a href="js.html"><p class="teal-text" style="float: left"><i class="material-icons">arrow_back</i> Back</p></a>
+    <h4 class="teal-text" id="mid">About this goal</h4><br>
+    <div class="col s12 m7">
+            <div class="card horizontal">
+              <div class="card-image">
+                <img src="http://via.placeholder.com/400x400">
+              </div>
+              <div class="card-stacked">
+                <div class="card-content">
+                    <ul>
+                        <li><i><span id="username">{{user_id}}</span></i></li>
+                        <li><span id="goal">{{goal_text}}</span></li><br>
+                        <li>{{descript}}</li><br>
+                        <li><i>Ends on <span id="endDate">{{end_date}}</span></i></li>
+                        <li><b><span id="following">{{fol}}</span> Following</b></li>
+                    </ul>
+                </div>
+                <div class="card-action">
+                  <a href="#" class="waves-effect waves-light teal-text interaction"><span id="follow">Follow</span></a>
+                  <a href="#modal1" class="waves-effect waves-light modal-trigger teal-text interaction" id="mdl1">Stake</a>
+                  <a href="#" class="waves-effect waves-light teal-text">See More From This User</a>
+                </div>
+              </div>
+            </div>
+    </div>
+
+    <br>
+
+    <div class="progress">
+            <div class="determinate" id="progressBarView"></div>
+    </div>
+    <p class="center-align teal-text"><span id="prgsView"></span></p>
+
+    <br>
+
+<!-- Carousel -->
+
+    <h4 class="teal-text" id="mid">Check out what's trending</h4>
+    <div class="carousel">
+            <a class="carousel-item" href="#one!"><img src="http://via.placeholder.com/300x300"></a>
+            <a class="carousel-item" href="#two!"><img src="http://via.placeholder.com/300x300"></a>
+            <a class="carousel-item" href="#three!"><img src="http://via.placeholder.com/300x300"></a>
+            <a class="carousel-item" href="#four!"><img src="http://via.placeholder.com/300x300"></a>
+            <a class="carousel-item" href="#five!"><img src="http://via.placeholder.com/300x300"></a>
+    </div>
+
+</div>
+
+<!-- Modal -->
+
+<div id="modal1" class="modal">
+        <div class="modal-content">
+          <h4>Are you sure?</h4>
+          <div class="row">
+                <a href="https://placeholder.com"><img src="http://via.placeholder.com/120x120" id="info"></a>
+                <p style="float: left">
+                    <ul>
+                        <li>
+                            <div class="input-field inline">
+                            <input type="number" id="stk"></input>
+                            <label for="stk">Stake Amount</label>
+                            </div>
+                        </li><br>
+                        <li>Your balance: <b><span id="balance">{{credits}}</span></b></li>
+                        
+                    </ul>
+                </p>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat buyIn">Stake</a>
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+</div>

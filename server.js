@@ -78,6 +78,13 @@ app.post("/create", function (req, res) {
 )
 })
 
+// view goal displayroute
+app.get("/view", function (req, res) {
+    // var query = "SELECT u.user, g.goal_text, g.goal_end, g.max_wager FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.complete=0"
+
+})
+
+
 // login page
 app.get("/login", function (req, res) {
     res.render("login")
