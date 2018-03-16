@@ -129,11 +129,25 @@ app.get("/newuser", function (req, res) {
 
 // post route for new user creation
 app.post("/newuser", function (req, res) {
-    res.redirect("/login");
-    var query = "INSERT INTO users SET ?"
-    connection.query(query, req.body, function (err, data) {
+    
+    var query = "SELECT * FROM users WHERE user = ?"
+
+  connection.query(query, [ req.body.user ], function(err, response) {
+    
+    if (response.length > 0) {
+      console.log("please select a new username")
+     res.redirect("/newuser")
+     
+    }
+    else {
+    var insert = "INSERT INTO users SET ?"
+    connection.query(insert, req.body, function (err, data) {
         if (err) throw err;
+
+        res.redirect("/login")
     })
+}
+})
 })
 
 // set server to listen 
