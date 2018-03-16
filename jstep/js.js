@@ -10,9 +10,67 @@ $.ajax({
     $("#author").text(response.author)
 })
 
+
+
+
+// Stake logic
+var account = 500;
+var raised = 0;
+var max = 400;
+
+var updateProg = function() {
+    var prog = (raised/max) * 100;
+    $("#progressBarView").attr("style", "width:" + prog + "%");
+    $("#prgsView").text(raised + " / " + max);
+    $("#balance").text(account);
+}
+
+var checkProg = function() {
+if(raised < max) {
+    updateProg();
+}
+else {
+    updateProg();
+    $("#progressBarView").attr("style", "width:100%");
+    $("#prgsView").text("Complete!");
+    $(".interaction").remove();
+}
+};
+
+checkProg();
+
+$(".buyIn").on("click", function() {
+    var bet = parseInt($("#stk").val());
+    var remaining = max - raised - bet;
+    if(account - bet >= 0 && bet > 0 && remaining >= 0) {
+        account -= bet;
+        raised += bet;
+        checkProg();
+        Materialize.toast('Stake successfully placed', 4000)
+    }
+    else if(bet <= 0) {
+        Materialize.toast('Please enter a valid amount.', 4000);
+    }
+    else if(remaining < 0) {
+        remaining *= (-1);
+        Materialize.toast('Invalid Amount! Only ' + remaining + ' available left to stake.', 4000)
+    }
+    else {
+        Materialize.toast('Insufficient Funds', 4000)
+    }
+})
+
+$(".update").on("click", function() {
+    $("#account").text(account);
+});
+
+
+
 // Modal activation
 
 $(document).ready(function(){
+    $("#balance").text(account);
+    $('.carousel').carousel();
     $("#mdl1").on("click", function() {
         var required = ($("#task").val() === "" || $("#timeframeEntry").val() === "" || $("#stake").val() === "");
         var maxStake = 500;
@@ -51,9 +109,10 @@ $("#shortTerm, #longTerm").on("click", function() {
     }
 })
 
-$(document).ready(function(){
-    $('.carousel').carousel();
-  });
+
+
+
+
 
 
 // Testing append on feed

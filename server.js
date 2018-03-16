@@ -23,8 +23,9 @@ app.set("view engine", "handlebars");
 
 // goals feed route (displays all the active goals)
 app.get("/", function (req, res) {
+
     if (req.session.user_id) {
-        var query = "SELECT u.user, g.goal_text FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.complete=0"
+        var query = "SELECT u.user, g.goal_text, g.goal_end, g.max_wager FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.complete=0";
 
         connection.query(query, function (err, data) {
             if (err) throw err;

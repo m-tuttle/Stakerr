@@ -19,6 +19,7 @@ CREATE TABLE goals(
   goal_text VARCHAR(45) NOT NULL,
   goal_start DATE NOT NULL,
   goal_end DATE NOT NULL,
+  max_wager INT NOT NULL,
   complete BOOLEAN DEFAULT 0,
   PRIMARY KEY (id)
 );

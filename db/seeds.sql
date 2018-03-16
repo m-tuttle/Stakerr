@@ -4,8 +4,8 @@ VALUES
     ("John", "john@fake.com", "3333334444", "password"),
     ("Luke", "luke@fake.com", "9991112222", "password");
 
-INSERT INTO goals (user_id, goal_text, goal_start, goal_end)
+INSERT INTO goals (user_id, goal_text, goal_start, goal_end, max_wager)
 VALUES 
-    (1, "Win in Super Smash Bros", "2018/3/15", "2018/3/30"),
-    (2, "Build a wooden dresser", "2018/3/15", "2018/4/30"),
-    (3, "Lose 15 pounds", "2018/3/15", "2018/5/30");    
+    (1, "Win in Super Smash Bros", "2018/3/15", "2018/3/30", 500),
+    (2, "Build a wooden dresser", "2018/3/15", "2018/4/30", 400),
+    (3, "Lose 15 pounds", "2018/3/15", "2018/5/30", 300);    

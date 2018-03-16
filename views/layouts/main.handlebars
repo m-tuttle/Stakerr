@@ -28,6 +28,24 @@
 		
 		{{{ body }}}
 
+    
+<!-- Element Showed -->
+
+  <div class="fixed-action-btn update" style="bottom: 45px; right: 24px;">
+        <a id="menu" class="btn btn-floating btn-large teal"  onclick="$('.tap-target').tapTarget('open')"><i class="material-icons">menu</i></a>
+      </div>
+
+<!-- Tap Target Structure -->
+  <div class="tap-target teal" data-activates="menu">
+    <div class="tap-target-content white-text">
+      <h5>Your Balance</h5>
+      <h6><span id="account"></span></h6>
+      <br>
+      <h5>Recently Followed</h5>
+      <p></p>
+    </div>
+  </div>
+
 	<footer class="page-footer teal">
         <p>Copyright © 2018 Stakerr</p>
     </footer>
