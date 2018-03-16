@@ -38,19 +38,13 @@
                             <p style="float: left">
                                 <ul>
                                     <li><span id="goal">{{goal_text}}</span></li><br>
-                                    <li><i>About <span id="endDate">20 minutes </span>remaining</i></li>
+                                    <li>End Date: {{dateConversion goal_end}}</li>
                                 </ul>
                             </p>
                             </div>
                             <div class="row">
-                                <div class="col s4">
-                                <button class="btn modal-trigger" data-target="modal1" id="mdl1" style="margin-left: 8%">Stake</button>
-                                </div>
-                                <div class="col s4">
-                                <p><i>60 credits remaining</i></p>
-                                </div>
-                                <div class="col s4">
-                                <button class="btn" style="float:right"><span id="follow"> Follow</span></button>
+                                <div class="col s4 offset-s4">
+                                <p>Max Stake: {{max_wager}}</p>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +57,7 @@
 
 <div class="row">
         <h4>Your stakes...</h4>
-        {{#each goals}}
+        {{#each stakes}}
         <div class="row"> 
                     <div class="col s2"></div>
                         <div class="card-panel col s8">
@@ -98,7 +92,7 @@
 
     <div class="row">
     <h4>Your following...</h4>
- {{#each goals}}
+ {{#each follows}}
         <div class="row"> 
                     <div class="col s2"></div>
                         <div class="card-panel col s8">

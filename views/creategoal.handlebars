@@ -3,9 +3,9 @@
     <div class="divider"></div><br>
     <div class="row">
         <div class="col s6">
-        <form method="POST">
+        <form id="createGoal">
             <div class="input-field">
-                <input type="text" id="task" data-length="50" class="validate" required>
+                <input type="text" id="task" data-length="50" class="validate" required name="goal_text">
                 <label for="task" data-success="">Task <span id="star">*</span></label>
             </div><br>
             
@@ -18,17 +18,17 @@
                    <li><a href="#!" id="longTerm">Long Term</a></li>
                 </ul>
             
-                <input type="time" id="timeframeEntry" name="endDate" class="validate" required>
+                <input type="time" id="timeframeEntry" name="goal_end" class="validate" required>
                 <label for="timeframeEntry">End Date <span id="star">*</span></label><br><br>
             </div>
             
             <div class="input-field">
-                <input type="number" id="stake" class="validate" required>
+                <input type="number" id="stake" class="validate" required name="max_wager">
                 <label for="stake">Maximum Stake <span id="star">*</span></label><br><br>
             </div>
 
             <div class="input-field">
-                    <input type="text" id="description" data-length="200" class="validate"></input>
+                    <input type="text" id="description" data-length="200" class="validate" name="descript"></input>
                     <label for="description">Description</label>
             </div><br>
 
@@ -41,8 +41,8 @@
         <div class="col s4"><img class="materialboxed" src="http://via.placeholder.com/185x185" style="margin-left: auto; margin-right: auto">
             <p>
                 <ul id="mid">
-                    <li><h5><a href="#">james123</a></h5></li><br>
-                    <li>500 Credits Available</li>
+                    <li><h5>{{user}}</h5></li><br>
+                    <li>Credit Balance: {{credits}}</li>
                     <li><a href="#">Add Credits</a></li>
                 </ul>
             </p>
@@ -57,16 +57,16 @@
           <h5>Please review your goal</h5><br>
           <div class="row">
                     <ul>
-                        <li><p>Raise $10,000 for charity.</p></li><br>
-                        <li><p>Max Stake Amount: <b>10</b></p></li>
-                        <li><p>Completed by <b>1/1/2019</b></p></li>
+                        <li><p id="modalGoalText">Raise $10,000 for charity.</p></li><br>
+                        <li><p>Max Stake Amount: <b id="modalMaxWager">10</b></p></li>
+                        <li><p>Completed by <b id="modalGoalEnd">1/1/2019</b></p></li>
                         <li><p>Your Remaining Balance: <b>490</b></p></li>
                     </ul>
                 </p>
             </div>
         </div>
         <div class="modal-footer">
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="Materialize.toast('Goal successfully created', 4000)">Create</a>
+          <a href="#!" id="goalSubmit" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="Materialize.toast('Goal successfully created', 4000)">Create</a>
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
         </div>
 </div>
