@@ -5,6 +5,8 @@ var connection = require("./config/connection.js");
 
 var app = module.exports = express();
 
+app.use(express.static("."));
+
 var session = require("express-session");
 
 app.use(session({ secret: "app", resave: false, saveUninitialized: true, cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 } }));
