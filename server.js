@@ -48,6 +48,8 @@ app.get("/myaccount", function (req, res) {
                 res.render("accountview", { "users": data1[0], "goals": data2 })
             })
         })
+    } else {
+        res.redirect("/login");
     }
 })
 
@@ -60,6 +62,8 @@ app.get("/create", function (req, res) {
             if (err) throw err;
             res.render("creategoal", { "goals": data })
         })
+    } else {
+        res.redirect("/login");
     }
 })
 
