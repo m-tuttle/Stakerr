@@ -46,13 +46,13 @@ $(".buyIn").on("click", function() {
         account -= bet;
         raised += bet;
         checkProg();
-        Materialize.toast('Stake successfully placed', 4000)
+        Materialize.toast('Stake successfully placed!', 4000)
     }
     else if(bet <= 0) {
         Materialize.toast('Please enter a valid amount.', 4000);
     }
     else if(remaining < 0) {
-        remaining *= (-1);
+        remaining = max - raised;
         Materialize.toast('Invalid Amount! Only ' + remaining + ' available left to stake.', 4000)
     }
     else {
@@ -72,13 +72,8 @@ $(document).ready(function(){
     $("#balance").text(account);
     $('.carousel').carousel();
     $("#mdl1").on("click", function() {
-        var required = ($("#task").val() === "" || $("#timeframeEntry").val() === "" || $("#stake").val() === "");
-        var maxStake = 500;
-        if(required){
-            $(".modal-trigger").attr("data-target", "modal2");
-            $('#modal2').modal();
-        }
-        else if($("#stake").val() > maxStake) {
+
+        if($("#stake").val() > max) {
             $(".modal-trigger").attr("data-target", "modal3");
             $('#modal3').modal();
         }
