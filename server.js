@@ -38,7 +38,7 @@ app.get("/", function (req, res) {
 // my account view display route
 app.get("/myaccount", function (req, res) {
     var query1 = "SELECT * FROM users WHERE id=?"
-    var query2 = "SELECT * FROM users u LEFT JOIN goals g ON u.id=g.user_id WHERE u.id=?"
+    var query2 = "SELECT * FROM goals g WHERE user_id=?"
     connection.query(query1, [req.session.user_id], function (err, data1) {
         if (err) throw err;
         connection.query(query2, [req.session.user_id], function (err, data2) {
