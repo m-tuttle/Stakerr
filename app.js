@@ -111,6 +111,13 @@ $("#goalSubmit").on("click", function () {
     })
 })
 
+// on click to populate the confirmation modal with the goal info
+$("#mdl1").on("click", function () {
+    $("#modalGoalText").text($("#task").val());
+    $("#modalMaxWager").text($("#stake").val());
+    $("#modalGoalEnd").text($("#timeframeEntry").val());
+})
+
 
 
 

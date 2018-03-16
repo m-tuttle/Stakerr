@@ -19,7 +19,11 @@ var exphbs = require("express-handlebars");
 var hbs = exphbs.create({
     helpers: {
         dateConversion: function (element) {
-            return element.toLocaleDateString("en-us");
+            var options = {  
+                year: "numeric", month: "short",  
+                day: "numeric", hour: "2-digit", minute: "2-digit"  
+            }; 
+            return element.toLocaleDateString("en-us", options);
         }
     },
     defaultLayout: "main"
@@ -78,12 +82,19 @@ app.get("/create", function (req, res) {
 app.post("/create", function (req, res) {
     var query = "INSERT INTO goals SET ?"
     var goal_start = new Date()
+    if (req.body.goal_end.length > 5) {
+        var goal_end = new Date(req.body.goal_end)
+    } else {
+        var goal_end = new Date();
+        goal_end.setHours(req.body.goal_end.split(":")[0],req.body.goal_end.split(":")[1]);
+    }
+    console.log(goal_end);
     connection.query(query,
         {
             "user_id": req.session.user_id,
             "goal_text": req.body.goal_text,
             "goal_start": goal_start,
-            "goal_end": new Date(req.body.goal_end),
+            "goal_end": goal_end,
             "max_wager": req.body.max_wager,
             "descript": req.body.descript
         },

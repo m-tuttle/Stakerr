@@ -3,7 +3,7 @@
     <div class="divider"></div><br>
     <div class="row">
         <div class="col s6">
-        <form action="/create" method="POST" id="createGoal">
+        <form id="createGoal">
             <div class="input-field">
                 <input type="text" id="task" data-length="50" class="validate" required name="goal_text">
                 <label for="task" data-success="">Task <span id="star">*</span></label>
@@ -57,9 +57,9 @@
           <h5>Please review your goal</h5><br>
           <div class="row">
                     <ul>
-                        <li><p>Raise $10,000 for charity.</p></li><br>
-                        <li><p>Max Stake Amount: <b>10</b></p></li>
-                        <li><p>Completed by <b>1/1/2019</b></p></li>
+                        <li><p id="modalGoalText">Raise $10,000 for charity.</p></li><br>
+                        <li><p>Max Stake Amount: <b id="modalMaxWager">10</b></p></li>
+                        <li><p>Completed by <b id="modalGoalEnd">1/1/2019</b></p></li>
                         <li><p>Your Remaining Balance: <b>490</b></p></li>
                     </ul>
                 </p>
