@@ -65,7 +65,7 @@ app.get("/create", function (req, res) {
     if (req.session.logged_in) {
         var query = "SELECT * FROM users WHERE id=?";
 
-        connection.query(query, [req.session.user_id] function (err, data) {
+        connection.query(query, [req.session.user_id], function (err, data) {
             if (err) throw err;
             res.render("creategoal", data[0])
         })
