@@ -17,6 +17,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var exphbs = require("express-handlebars");
 
 var hbs = exphbs.create({
+    helpers: {
+        dateConversion: function (element) {
+            return element.toLocaleDateString("en-us");
+        }
+    },
     defaultLayout: "main"
 });
 
@@ -58,11 +63,11 @@ app.get("/myaccount", function (req, res) {
 // create goal display route
 app.get("/create", function (req, res) {
     if (req.session.logged_in) {
-        var query = "SELECT * FROM users WHERE id=1";
+        var query = "SELECT * FROM users WHERE id=?";
 
-        connection.query(query, function (err, data) {
+        connection.query(query, [req.session.user_id] function (err, data) {
             if (err) throw err;
-            res.render("creategoal", { "goals": data })
+            res.render("creategoal", data[0])
         })
     } else {
         res.redirect("/login");
@@ -78,7 +83,7 @@ app.post("/create", function (req, res) {
             "user_id": req.session.user_id,
             "goal_text": req.body.goal_text,
             "goal_start": goal_start,
-            "goal_end": new Date(),
+            "goal_end": new Date(req.body.goal_end),
             "max_wager": req.body.max_wager,
             "descript": req.body.descript
         },
