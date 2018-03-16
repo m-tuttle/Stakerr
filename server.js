@@ -33,13 +33,14 @@ app.get("/", function (req, res) {
 
 // my account view display route
 app.get("/myaccount", function (req, res) {
-    var query = "SELECT * FROM users WHERE id=?"
-    console.log(req.session);
-    console.log(req.session.id);
-    connection.query(query, [req.session.user_id], function (err, data) {
+    var query1 = "SELECT * FROM users WHERE id=?"
+    var query2 = "SELECT * FROM users u LEFT JOIN goals g ON u.id=g.user_id WHERE u.id=?"
+    connection.query(query1, [req.session.user_id], function (err, data1) {
         if (err) throw err;
-        console.log(data);
-        res.render("accountview", data[0])
+        connection.query(query2, [req.session.user_id], function (err, data2) {
+            if (err) throw err;
+            res.render("accountview", {"users": data1[0], "goals": data2})
+        })
     })
 })
 
@@ -66,8 +67,6 @@ app.post("/userlogin", function (req, res) {
         if (req.body.user_pw === data[0].user_pw) {
             req.session.logged_in = true;
             req.session.user_id = data[0].id;
-            console.log(req.session.id);
-            console.log(req.session);
             res.redirect("/");
         } else {
             res.redirect("/login");
