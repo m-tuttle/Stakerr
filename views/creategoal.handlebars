@@ -3,9 +3,9 @@
     <div class="divider"></div><br>
     <div class="row">
         <div class="col s6">
-        <form method="POST">
+        <form action="/create" method="POST">
             <p><b>Task</b></p>
-            <input type="text" name="task"></input><br>
+            <input type="text" name="goal_text"></input><br>
             <p><b>Maximum Stake</b></p>
             <input type="number" name="stake"></input><br><br>
             <p><b>End Date</b>
@@ -19,7 +19,7 @@
                 <li><a href="#!" id="longTerm">Long Term</a></li>
             </ul>
         </p>
-            <input id="timeframeEntry" type="time" name="endDate"></input><br><br>
+            <input id="timeframeEntry" type="time" name="goal_end"></input><br><br>
             <p><b>Description</b></p>
             <input type="text" name="description"></input><br><br><br>
             <button class="btn modal-trigger" data-target="modal1" id="mdl1" type="submit" style="width: 100%">Submit</button>
