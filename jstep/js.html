@@ -28,7 +28,6 @@
 
     <div class="row">
         <div class="col s2">
-            <!-- <button class="btn" id="addRow">Add</button> -->
         </div>
         <div class="col s8">
         <h6>
@@ -46,7 +45,6 @@
             <div class="card-panel col s8">
                 <div class="row">
                 <img class="materialboxed" src="http://via.placeholder.com/120x120" id="info">
-                <a class="black-text" href="jsviewgoal.html">
                 <p style="float: left">
                     <ul>
                         <li><i><span id="username">jim123</span></i></li>
@@ -55,18 +53,20 @@
                         <li><b><span id="following">0</span> Following</b></li>
                     </ul>
                 </p>
-                </a>
                 </div>
                 
                 <div class="row">
                     <div class="col s4">
-                    <button class="btn modal-trigger" data-target="modal1" id="mdl1" style="margin-left: 8%">Stake</button>
+                    <a href="jsviewgoal.html"><button class="btn interaction" style="margin-left: 10%">View</button></a>
                     </div>
                     <div class="col s4">
-                    <p><i>240 credits remaining</i></p>
+                            <div class="progress">
+                                    <div class="determinate" id="progressBar" style="width: 100%"></div>
+                            </div>
+                            <p class="center-align teal-text"><span id="prgsFeed">Complete!</span></p>
                     </div>
                     <div class="col s4">
-                    <button class="btn" style="float:right"><span id="follow">Follow</span></button>
+                    <button class="btn interaction" style="float:right"><span id="follow">Follow</span></button>
                     </div>
                 </div>
             </div>
@@ -93,7 +93,10 @@
                             <button class="btn modal-trigger" data-target="modal1" id="mdl1" style="margin-left: 8%">Stake</button>
                             </div>
                             <div class="col s4">
-                            <p><i>120 credits remaining</i></p>
+                                    <div class="progress">
+                                            <div class="determinate" id="progressBar" style="width: 80%"></div>
+                                    </div>
+                                    <p class="center-align teal-text"><span id="prgsFeed">400/500</span></p>
                             </div>
                             <div class="col s4">
                             <button class="btn" style="float:right"><span id="follow">Follow</span></button>
@@ -123,7 +126,10 @@
                                 <button class="btn modal-trigger" data-target="modal1" id="mdl1" style="margin-left: 8%">Stake</button>
                                 </div>
                                 <div class="col s4">
-                                <p><i>60 credits remaining</i></p>
+                                        <div class="progress">
+                                                <div class="determinate" id="progressBar" style="width: 50%"></div>
+                                        </div>
+                                        <p class="center-align teal-text"><span id="prgsFeed">250/500</span></p>
                                 </div>
                                 <div class="col s4">
                                 <button class="btn" style="float:right"><span id="follow">Follow</span></button>
@@ -136,32 +142,35 @@
 
     <!-- modals -->
 
-  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>Are you sure?</h4>
-      <div class="row">
-            <a href="https://placeholder.com"><img src="http://via.placeholder.com/120x120" id="info"></a>
-            <p style="float: left">
-                <ul>
-                    <li><i><span id="username">mike846</span></i></li>
-                    <li><span id="goal">Raise $10,000 for charity.</span></li><br>
-                    <li><b>Stake Amount: 10</b></li>
-                    <li><b>Your balance: 500</b></li>
-                    
-                </ul>
-            </p>
-        </div>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="Materialize.toast('Stake successfully placed', 4000)">Stake</a>
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-    </div>
-  </div>
+    <div id="modal1" class="modal">
+            <div class="modal-content">
+              <h4>Are you sure?</h4>
+              <div class="row">
+                    <a href="https://placeholder.com"><img src="http://via.placeholder.com/120x120" id="info"></a>
+                    <p style="float: left">
+                        <ul>
+                            <li>
+                                <div class="input-field inline">
+                                <input type="number" id="stk"></input>
+                                <label for="stk">Stake Amount</label>
+                                </div>
+                            </li><br>
+                            <li>Your balance: <b><span id="balance"></span></b></li>
+                            
+                        </ul>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat buyIn">Stake</a>
+              <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+            </div>
+          </div>
 
 
       <!-- Element Showed -->
 
-  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+  <div class="fixed-action-btn update" style="bottom: 45px; right: 24px;">
         <a id="menu" class="btn btn-floating btn-large teal"  onclick="$('.tap-target').tapTarget('open')"><i class="material-icons">menu</i></a>
       </div>
 
@@ -169,7 +178,7 @@
   <div class="tap-target teal" data-activates="menu">
     <div class="tap-target-content white-text">
       <h5>Your Balance</h5>
-      <h6>500</h6>
+      <h6><span id="account"></span></h6>
       <br>
       <h5>Recently Followed</h5>
       <p></p>

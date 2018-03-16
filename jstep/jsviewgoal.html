@@ -26,6 +26,8 @@
             </nav>
     </div>
 
+<!-- Main Page -->
+
     <div class="container">
     <br><a href="js.html"><p class="teal-text" style="float: left"><i class="material-icons">arrow_back</i> Back</p></a>
     <h4 class="teal-text" id="mid">About this goal</h4><br>
@@ -45,8 +47,8 @@
                     </ul>
                 </div>
                 <div class="card-action">
-                  <a href="#" class="waves-effect waves-light teal-text"><span id="follow">Follow</span></a>
-                  <a class="waves-effect waves-light modal-trigger teal-text" href="#modal1" id="mdl1">Stake</a>
+                  <a href="#" class="waves-effect waves-light teal-text interaction"><span id="follow">Follow</span></a>
+                  <a href="#modal1" class="waves-effect waves-light modal-trigger teal-text interaction" id="mdl1">Stake</a>
                   <a href="#" class="waves-effect waves-light teal-text">See More From This User</a>
                 </div>
               </div>
@@ -54,6 +56,15 @@
     </div>
 
     <br>
+
+    <div class="progress">
+            <div class="determinate" id="progressBarView"></div>
+    </div>
+    <p class="center-align teal-text"><span id="prgsView"></span></p>
+
+    <br>
+
+<!-- Carousel -->
 
     <h4 class="teal-text" id="mid">Check out what's trending</h4>
     <div class="carousel">
@@ -75,22 +86,25 @@
                 <a href="https://placeholder.com"><img src="http://via.placeholder.com/120x120" id="info"></a>
                 <p style="float: left">
                     <ul>
-                        <li><i><span id="username">mike846</span></i></li>
-                        <li><span id="goal">Raise $10,000 for charity.</span></li><br>
-                        <li><b>Stake Amount: 10</b></li>
-                        <li><b>Your balance: 500</b></li>
+                        <li>
+                            <div class="input-field inline">
+                            <input type="number" id="stk"></input>
+                            <label for="stk">Stake Amount</label>
+                            </div>
+                        </li><br>
+                        <li>Your balance: <b><span id="balance"></span></b></li>
                         
                     </ul>
                 </p>
             </div>
         </div>
         <div class="modal-footer">
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="Materialize.toast('Stake successfully placed', 4000)">Stake</a>
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat buyIn">Stake</a>
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
         </div>
       </div>
 
-
+<!-- Footer -->
 
 	<footer class="page-footer teal">
         <p id="mid">Copyright © 2018 Stakerr</p>
