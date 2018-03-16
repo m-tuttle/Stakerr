@@ -7,7 +7,7 @@ var app = module.exports = express();
 
 var session = require("express-session");
 
-app.use(session({ secret: "app", resave: false, saveUninitialized: true, cookie: {secure: false, maxAge: 1000 * 60 * 60 * 24}}));
+app.use(session({ secret: "app", resave: false, saveUninitialized: true, cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 } }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -23,23 +23,29 @@ app.set("view engine", "handlebars");
 
 // goals feed route (displays all the active goals)
 app.get("/", function (req, res) {
-    var query = "SELECT u.user, g.goal_text, g.goal_end, g.max_wager FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.complete=0"
 
-    connection.query(query, function (err, data) {
-        if (err) throw err;
-        res.render("goalsfeed", {"goals": data})
-    })
+    if (req.session.user_id) {
+        var query = "SELECT u.user, g.goal_text, g.goal_end, g.max_wager FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.complete=0";
+
+        connection.query(query, function (err, data) {
+            if (err) throw err;
+            res.render("goalsfeed", { "goals": data });
+        })
+    } else {
+        res.redirect("/login");
+    }
 })
 
 // my account view display route
 app.get("/myaccount", function (req, res) {
-    var query = "SELECT * FROM users WHERE id=?"
-    console.log(req.session);
-    console.log(req.session.id);
-    connection.query(query, [req.session.user_id], function (err, data) {
+    var query1 = "SELECT * FROM users WHERE id=?"
+    var query2 = "SELECT * FROM goals g WHERE user_id=?"
+    connection.query(query1, [req.session.user_id], function (err, data1) {
         if (err) throw err;
-        console.log(data);
-        res.render("accountview", data[0])
+        connection.query(query2, [req.session.user_id], function (err, data2) {
+            if (err) throw err;
+            res.render("accountview", { "users": data1[0], "goals": data2 })
+        })
     })
 })
 
@@ -49,7 +55,7 @@ app.get("/create", function (req, res) {
 
     connection.query(query, function (err, data) {
         if (err) throw err;
-        res.render("creategoal", {"goals": data})
+        res.render("creategoal", { "goals": data })
     })
 })
 
@@ -66,8 +72,6 @@ app.post("/userlogin", function (req, res) {
         if (req.body.user_pw === data[0].user_pw) {
             req.session.logged_in = true;
             req.session.user_id = data[0].id;
-            console.log(req.session.id);
-            console.log(req.session);
             res.redirect("/");
         } else {
             res.redirect("/login");

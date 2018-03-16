@@ -4,10 +4,10 @@
             <img class="materialboxed" src="http://via.placeholder.com/185x185" id="info">
             <p>
                 <ul>
-                    <li><h5><span id="username">{{user}}</span></h5></li>
-                    <li>{{email}}</li>
-                    <li>{{phone}}</li>
-                    <li>{{credits}}</li>
+                    <li><h5><span id="username">{{users.user}}</span></h5></li>
+                    <li>{{users.email}}</li>
+                    <li>{{users.phone}}</li>
+                    <li>{{users.credits}}</li>
                     <li><a href="#">Add Credits</a></li>
                     <li><a href="#">Update Contact Information</a></li>
                 </ul>
@@ -37,7 +37,6 @@
                                     <img class="materialboxed" src="http://via.placeholder.com/120x120" id="info">
                             <p style="float: left">
                                 <ul>
-                                    <li><i><span id="username">{{user}}</span></i></li>
                                     <li><span id="goal">{{goal_text}}</span></li><br>
                                     <li><i>About <span id="endDate">20 minutes </span>remaining</i></li>
                                 </ul>
