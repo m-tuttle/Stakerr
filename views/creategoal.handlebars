@@ -3,7 +3,7 @@
     <div class="divider"></div><br>
     <div class="row">
         <div class="col s6">
-        <form action="/create" method="POST">
+        <form action="/create" method="POST" id="createGoal">
             <div class="input-field">
                 <input type="text" id="task" data-length="50" class="validate" required name="goal_text">
                 <label for="task" data-success="">Task <span id="star">*</span></label>
@@ -18,7 +18,7 @@
                    <li><a href="#!" id="longTerm">Long Term</a></li>
                 </ul>
             
-                <input type="time" id="timeframeEntry" name="endDate" class="validate" required name="goal_end">
+                <input type="time" id="timeframeEntry" name="goal_end" class="validate" required>
                 <label for="timeframeEntry">End Date <span id="star">*</span></label><br><br>
             </div>
             
@@ -41,8 +41,8 @@
         <div class="col s4"><img class="materialboxed" src="http://via.placeholder.com/185x185" style="margin-left: auto; margin-right: auto">
             <p>
                 <ul id="mid">
-                    <li><h5><a href="#">{{user}}</a></h5></li><br>
-                    <li>{{credits}}</li>
+                    <li><h5>{{user}}</h5></li><br>
+                    <li>Credit Balance: {{credits}}</li>
                     <li><a href="#">Add Credits</a></li>
                 </ul>
             </p>
@@ -66,7 +66,7 @@
             </div>
         </div>
         <div class="modal-footer">
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="Materialize.toast('Goal successfully created', 4000)">Create</a>
+          <a href="#!" id="goalSubmit" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="Materialize.toast('Goal successfully created', 4000)">Create</a>
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
         </div>
 </div>
