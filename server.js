@@ -165,7 +165,7 @@ app.get("/view/:goalid", function (req, res) {
 
         checkProg();
 
-        res.render("viewgoal", { "view": data[0] })
+        res.render("viewgoal", { "view": data[0], "user_credits": req.session.credits })
     })
 })
 
@@ -192,6 +192,8 @@ app.post("/stake/create", function (req, res) {
     ];
     connection.query(query2, params2, function (err, data) {
         if (err) throw err;
+        req.session.credits = params2[0].credits;
+        console.log(req.session);
         res.send(data);
     })
 })
@@ -216,6 +218,7 @@ app.post("/userlogin", function (req, res) {
         if (req.body.user_pw === data[0].user_pw) {
             req.session.logged_in = true;
             req.session.user_id = data[0].id;
+            req.session.credits = data[0].credits;
             res.redirect("/");
         } else {
             res.redirect("/login");
