@@ -1,5 +1,8 @@
 // Random quote generator
 
+var express = require('express');
+var router  = express.Router();
+
 var query = "https://talaikis.com/api/quotes/random/";
 
 $.ajax({
@@ -91,11 +94,18 @@ $(document).ready(function () {
 
 // Click functions
 
-$(document).on("click", "#follow", function () {
+var goal;
 
-    $(this).html("<i class='material-icons'>check</i>")
+$(document).on("click", ".interaction", function () {
 
-})
+    $(this).html("<i class='material-icons'>check</i>");
+    goal = $(this).attr("data-num");
+    console.log(goal);
+    
+});
+
+module.exports(goal);
+
 
 $("#shortTerm, #longTerm").on("click", function () {
     $("#timeframe").text(this.text);
