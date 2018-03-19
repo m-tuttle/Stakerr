@@ -58,11 +58,20 @@ app.get("/", function (req, res) {
 app.post("/", function(req, res) {
 
     var user = req.session.user_id;
+    var following;
+    var query = "SELECT f.user_id, f.flng, g.id FROM goals g LEFT JOIN folwng f ON f.flng=g.folwng WHERE f.user_id=2";
 
-    var post = "UPDATE users SET following=true WHERE id=" + user + "";
-    connection.query(post, [req.session.user_id], function(err, data) {
-        if (err) throw err;
+    connection.query(query, function(err, data) {
+        if(data.length !== 0) {
+        var post = "UPDATE folwng SET (flng, follow_id, user_id) VALUES (1," + follow_id + ", " + user +"";
+            connection.query(post, function(err, data) {
+            if (err) throw err;
+            })
+        }
+
     })
+
+
     res.redirect("/")
 })
 
@@ -208,7 +217,7 @@ app.post("/newuser", function (req, res) {
   connection.query(query, [ req.body.user ], function(err, response) {
     
     if (response.length > 0) {
-      console.log("please select a new username")
+     console.log("Please select a new username.")
      res.redirect("/newuser")
      
     }

@@ -23,6 +23,7 @@ CREATE TABLE goals(
   max_wager INT NOT NULL,
   descript VARCHAR (250),
   fol INT DEFAULT 0,
+  folwng BOOLEAN DEFAULT 0,
   complete BOOLEAN DEFAULT 0,
   PRIMARY KEY (id)
 );
@@ -38,6 +39,9 @@ CREATE TABLE wagers(
 
 CREATE TABLE folwng(
   follows INT NOT NULL DEFAULT 0,
-  followers INT,
-  FOREIGN KEY follow_id REFERENCES goals(id)
+  flng INT DEFAULT 0,
+  user_id INT,
+  follow_id INT NOT NULL,
+
+  FOREIGN KEY (follow_id) references goals(id)
 )
