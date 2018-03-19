@@ -9,7 +9,7 @@ var $ = require('jquery')(window);
 
 var app = module.exports = express();
 
-app.use(express.static("."));
+app.use("/public", express.static('public'));
 
 var session = require("express-session");
 
@@ -23,10 +23,10 @@ var exphbs = require("express-handlebars");
 var hbs = exphbs.create({
     helpers: {
         dateConversion: function (element) {
-            var options = {  
-                year: "numeric", month: "short",  
-                day: "numeric", hour: "2-digit", minute: "2-digit"  
-            }; 
+            var options = {
+                year: "numeric", month: "short",
+                day: "numeric", hour: "2-digit", minute: "2-digit"
+            };
             return element.toLocaleDateString("en-us", options);
         }
     },
@@ -45,7 +45,7 @@ app.get("/", function (req, res) {
 
         connection.query(query, function (err, data) {
             if (err) throw err;
-            
+
             res.render("goalsfeed", { "goals": data });
         })
     } else {
@@ -55,7 +55,7 @@ app.get("/", function (req, res) {
 
 // feed following post route
 
-app.post("/", function(req, res) {
+app.post("/", function (req, res) {
 
     var user = req.session.user_id;
     var following;
@@ -69,6 +69,9 @@ app.post("/", function(req, res) {
             })
         }
 
+    var post = "UPDATE users SET following=true WHERE id=" + user + "";
+    connection.query(post, [req.session.user_id], function (err, data) {
+        if (err) throw err;
     })
 
 
@@ -114,7 +117,7 @@ app.post("/create", function (req, res) {
         var goal_end = new Date(req.body.goal_end)
     } else {
         var goal_end = new Date();
-        goal_end.setHours(req.body.goal_end.split(":")[0],req.body.goal_end.split(":")[1]);
+        goal_end.setHours(req.body.goal_end.split(":")[0], req.body.goal_end.split(":")[1]);
     }
     console.log(goal_end);
     connection.query(query,
@@ -139,43 +142,47 @@ var max;
 
 // view goal display route
 app.get("/view/:goalid", function (req, res) {
-    var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.fol FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.id=2";
+    var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.fol FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.id=?";
 
-    connection.query(query, function (err, data) {
+    console.log(req.params);
+    console.log(parseInt(req.params.goalid));
+    connection.query(query, [parseInt(req.params.goalid)], function (err, data) {
         if (err) throw err;
+        console.log(data);
         balance = data[0].credits;
         raised = data[0].raised;
         max = data[0].max_wager;
 
         console.log(raised);
 
-        $(".update").on("click", function() {
+        $(".update").on("click", function () {
             $("#account").text(balance);
         });
 
 
-        var updateProg = function() {
-            var prog = (raised/max) * 100;
+        var updateProg = function () {
+            var prog = (raised / max) * 100;
             $("#progressBarView").attr("style", "width:" + prog + "%");
         }
-        
-        var checkProg = function() {
-        if(raised < max) {
-            updateProg();
-        }
-        else {
-            updateProg();
-            $("#progressBarView").attr("style", "width:100%");
-            $("#prgsView").text("Complete!");
-            $(".interaction").remove();
-        }
+
+        var checkProg = function () {
+            if (raised < max) {
+                updateProg();
+            }
+            else {
+                updateProg();
+                $("#progressBarView").attr("style", "width:100%");
+                $("#prgsView").text("Complete!");
+                $(".interaction").remove();
+            }
         };
-        
+
         checkProg();
 
         res.render("viewgoal", { "view": data[0] })
-        })
     })
+})
+
 
 // app.post("/updateview", function (req, res) {
 //     var query2 = "UPDATE goals SET raised=? where id=?";
@@ -211,25 +218,25 @@ app.get("/newuser", function (req, res) {
 
 // post route for new user creation
 app.post("/newuser", function (req, res) {
-    
+
     var query = "SELECT * FROM users WHERE user = ?"
 
-  connection.query(query, [ req.body.user ], function(err, response) {
-    
-    if (response.length > 0) {
-     console.log("Please select a new username.")
-     res.redirect("/newuser")
-     
-    }
-    else {
-    var insert = "INSERT INTO users SET ?"
-    connection.query(insert, req.body, function (err, data) {
-        if (err) throw err;
+    connection.query(query, [req.body.user], function (err, response) {
 
-        res.redirect("/login")
+        if (response.length > 0) {
+            console.log("please select a new username")
+            res.redirect("/newuser")
+
+        }
+        else {
+            var insert = "INSERT INTO users SET ?"
+            connection.query(insert, req.body, function (err, data) {
+                if (err) throw err;
+
+                res.redirect("/login")
+            })
+        }
     })
-}
-})
 })
 
 // set server to listen 
@@ -240,9 +247,9 @@ app.listen(port);
 /////// page functions
 
 
-$("#shortTerm, #longTerm").on("click", function() {
+$("#shortTerm, #longTerm").on("click", function () {
     $("#timeframe").text(this.text);
-    if(this.text === "Long Term") {
+    if (this.text === "Long Term") {
         $("#timeframeEntry").attr("type", "date")
     }
     else {
@@ -252,24 +259,23 @@ $("#shortTerm, #longTerm").on("click", function() {
 
 
 
-$(".buyIn").on("click", function() {
+$(".buyIn").on("click", function () {
     var bet = parseInt($("#stk").val());
     var remaining = max - raised - bet;
-    if(account - bet >= 0 && bet > 0 && remaining >= 0) {
+    if (account - bet >= 0 && bet > 0 && remaining >= 0) {
         account -= bet;
         raised += bet;
         checkProg();
         Materialize.toast('Stake successfully placed!', 4000)
     }
-    else if(bet <= 0) {
+    else if (bet <= 0) {
         Materialize.toast('Please enter a valid amount.', 4000);
     }
-    else if(remaining < 0) {
+    else if (remaining < 0) {
         remaining = max - raised;
         Materialize.toast('Invalid Amount! Only ' + remaining + ' available left to stake.', 4000)
     }
     else {
         Materialize.toast('Insufficient Funds', 4000)
     }
-})
-
+});
