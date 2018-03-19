@@ -107,6 +107,7 @@ app.post("/", function (req, res) {
 
     
 })
+})
 
 // my account view display route
 app.get("/myaccount", function (req, res) {
@@ -172,10 +173,12 @@ var max;
 
 // view goal display route
 app.get("/view/:goalid", function (req, res) {
+<<<<<<< HEAD
     var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.fol FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.goal_id=?";
+=======
+    var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.fol, g.id FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.id=?";
+>>>>>>> 3091cee1498d19fcaeefff91184c6732874888af
 
-    console.log(req.params);
-    console.log(parseInt(req.params.goalid));
     connection.query(query, [parseInt(req.params.goalid)], function (err, data) {
         if (err) throw err;
         console.log(data);
@@ -185,9 +188,9 @@ app.get("/view/:goalid", function (req, res) {
 
         console.log(raised);
 
-        $(".update").on("click", function () {
-            $("#account").text(balance);
-        });
+        // $(".update").on("click", function () {
+        //     $("#account").text(balance);
+        // });
 
 
         var updateProg = function () {
@@ -209,7 +212,36 @@ app.get("/view/:goalid", function (req, res) {
 
         checkProg();
 
-        res.render("viewgoal", { "view": data[0] })
+        res.render("viewgoal", { "view": data[0], "user_credits": req.session.credits })
+    })
+})
+
+// route for creating a stake (placing a wager on a goal) 
+app.post("/stake/create", function (req, res) {
+    var query1 = "INSERT INTO wagers SET ?";
+    var params1 = {
+        "wager_amount": req.body.wager_amount,
+        "wager_fill": 0,
+        "goal_id": req.body.id,
+        "user_id": req.session.user_id
+    };
+    connection.query(query1, params1, function (err, data) {
+        if (err) throw err;
+    })
+    var query2 = "UPDATE users SET ? WHERE ?";
+    var params2 = [
+        {
+            "credits": req.body.credits - req.body.wager_amount
+        },
+        {
+            "id": req.session.user_id
+        }
+    ];
+    connection.query(query2, params2, function (err, data) {
+        if (err) throw err;
+        req.session.credits = params2[0].credits;
+        console.log(req.session);
+        res.send(data);
     })
 })
 
@@ -233,6 +265,7 @@ app.post("/userlogin", function (req, res) {
         if (req.body.user_pw === data[0].user_pw) {
             req.session.logged_in = true;
             req.session.user_id = data[0].id;
+            req.session.credits = data[0].credits;
             res.redirect("/");
         } else {
             res.redirect("/login");
@@ -271,10 +304,16 @@ app.post("/newuser", function (req, res) {
 
 // set server to listen 
 var port = process.env.PORT || 3000;
-app.listen(port);
+app.listen(port, function(error){
+    if (error) {
+throw error;
+    }
+    console.log('asfeasdasfd')
+});
 
 
-/////// page functions
+
+///// page functions
 
 
 $("#shortTerm, #longTerm").on("click", function () {
@@ -309,3 +348,4 @@ $(".buyIn").on("click", function () {
         Materialize.toast('Insufficient Funds', 4000)
     }
 });
+

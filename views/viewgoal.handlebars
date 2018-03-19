@@ -62,14 +62,14 @@
                             <label for="stk">Stake Amount</label>
                             </div>
                         </li><br>
-                        <li>Your balance: <b><span id="balance">{{credits}}</span></b></li>
+                        <li>Your balance: <b><span id="balance">{{user_credits}}</span></b></li>
                         
                     </ul>
                 </p>
             </div>
         </div>
         <div class="modal-footer">
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat buyIn">Stake</a>
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat buyIn" data-goal="{{view.id}}">Stake</a>
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
         </div>
 </div>

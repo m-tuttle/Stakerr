@@ -15,7 +15,7 @@ $.ajax({
 
 var selected;
 
-$(document).on("click", ".interaction", function() {
+$(document).on("click", ".interaction", function () {
     console.log(this);
 });
 
@@ -28,7 +28,7 @@ var updateProg = function () {
     var prog = (raised / max) * 100;
     $("#progressBarView").attr("style", "width:" + prog + "%");
     $("#prgsView").text(raised + " / " + max);
-    $("#balance").text(account);
+    // $("#balance").text(account);
 }
 
 var checkProg = function () {
@@ -53,6 +53,15 @@ $(".buyIn").on("click", function () {
         raised += bet;
         checkProg();
         Materialize.toast('Stake successfully placed!', 4000)
+        $.post("/stake/create",
+            {
+                "wager_amount": bet,
+                "id": $(".buyIn").attr("data-goal"),
+                "credits": $("#balance").text()
+            },
+            function (err, res) {
+                console.log(res);
+            })
     }
     else if (bet <= 0) {
         Materialize.toast('Please enter a valid amount.', 4000);
@@ -66,16 +75,16 @@ $(".buyIn").on("click", function () {
     }
 })
 
-$(".update").on("click", function () {
-    $("#account").text(account);
-});
+// $(".update").on("click", function () {
+//     $("#account").text(account);
+// });
 
 
 
 // Modal activation
 
 $(document).ready(function () {
-    $("#balance").text(account);
+    // $("#balance").text(account);
     $('.carousel').carousel();
     $("#mdl1").on("click", function () {
 
