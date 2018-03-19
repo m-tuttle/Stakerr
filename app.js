@@ -10,8 +10,11 @@ $.ajax({
     $("#author").text(response.author)
 })
 
+var selected;
 
-
+$(document).on("click", ".interaction", function() {
+    console.log(this);
+});
 
 // Stake logic
 var account = 500;

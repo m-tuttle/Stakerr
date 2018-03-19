@@ -17,7 +17,7 @@
                 
                 <div class="row">
                     <div class="col s4">
-                    <a href="/view"><button class="btn interaction" style="margin-left: 10%">View</button></a>
+                    <a href="/view"><button class="btn" style="margin-left: 10%">View</button></a>
                     </div>
                     <div class="col s4">
                             <div class="progress">
@@ -26,7 +26,9 @@
                             <p class="center-align teal-text"><span id="prgsFeed">{{raised}} / {{max_wager}}</span></p>
                     </div>
                     <div class="col s4">
-                    <button class="btn interaction" style="float:right"><span id="follow">Follow</span></button>
+                        {{!-- <form action = "/" method = "POST"> --}}
+                        <button class="btn interaction" style="float:right"><span id="follow">Follow</span></button>
+                        {{!-- </form> --}}
                     </div>
                 </div>
             </div>

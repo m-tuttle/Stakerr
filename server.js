@@ -36,26 +36,34 @@ var hbs = exphbs.create({
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
+
 // goals feed route (displays all the active goals)
 app.get("/", function (req, res) {
 
     if (req.session.logged_in) {
-        var query = "SELECT u.user, g.goal_text, g.goal_end, g.raised, g.max_wager FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.complete=0";
-
-
-        $("#follow").on("click", function() {
-
-        $(this).html("<i class='material-icons'>check</i>")
-
-        })
+        var query = "SELECT u.user, g.id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.fol FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.complete=0";
 
         connection.query(query, function (err, data) {
             if (err) throw err;
+            
             res.render("goalsfeed", { "goals": data });
         })
     } else {
         res.redirect("/login");
     }
+})
+
+// feed following post route
+
+app.post("/", function(req, res) {
+
+    var user = req.session.user_id;
+
+    var post = "UPDATE users SET following=true WHERE id=" + user + "";
+    connection.query(post, [req.session.user_id], function(err, data) {
+        if (err) throw err;
+    })
+    res.redirect("/")
 })
 
 // my account view display route
@@ -121,7 +129,7 @@ var raised;
 var max;
 
 // view goal display route
-app.get("/view", function (req, res) {
+app.get("/view/:goalid", function (req, res) {
     var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.fol FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.id=2";
 
     connection.query(query, function (err, data) {

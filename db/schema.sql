@@ -22,7 +22,7 @@ CREATE TABLE goals(
   raised INT DEFAULT 0,
   max_wager INT NOT NULL,
   descript VARCHAR (250),
-  fol INT DEFAULT 0,
+  fol INT DEFAULT 1,
   complete BOOLEAN DEFAULT 0,
   PRIMARY KEY (id)
 );
