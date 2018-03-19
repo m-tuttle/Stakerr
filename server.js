@@ -58,11 +58,23 @@ app.get("/", function (req, res) {
 app.post("/", function (req, res) {
 
     var user = req.session.user_id;
+    var following;
+    var query = "SELECT f.user_id, f.flng, g.id FROM goals g LEFT JOIN folwng f ON f.flng=g.folwng WHERE f.user_id=2";
+
+    connection.query(query, function(err, data) {
+        if(data.length !== 0) {
+        var post = "UPDATE folwng SET (flng, follow_id, user_id) VALUES (1," + follow_id + ", " + user +"";
+            connection.query(post, function(err, data) {
+            if (err) throw err;
+            })
+        }
 
     var post = "UPDATE users SET following=true WHERE id=" + user + "";
     connection.query(post, [req.session.user_id], function (err, data) {
         if (err) throw err;
     })
+
+
     res.redirect("/")
 })
 
@@ -294,5 +306,4 @@ $(".buyIn").on("click", function () {
     else {
         Materialize.toast('Insufficient Funds', 4000)
     }
-})
-
+});
