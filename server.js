@@ -130,10 +130,8 @@ var max;
 
 // view goal display route
 app.get("/view/:goalid", function (req, res) {
-    var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.fol FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.id=?";
+    var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.fol, g.id FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.id=?";
 
-    console.log(req.params);
-    console.log(parseInt(req.params.goalid));
     connection.query(query, [parseInt(req.params.goalid)], function (err, data) {
         if (err) throw err;
         console.log(data);
@@ -143,9 +141,9 @@ app.get("/view/:goalid", function (req, res) {
 
         console.log(raised);
 
-        $(".update").on("click", function () {
-            $("#account").text(balance);
-        });
+        // $(".update").on("click", function () {
+        //     $("#account").text(balance);
+        // });
 
 
         var updateProg = function () {
@@ -168,6 +166,33 @@ app.get("/view/:goalid", function (req, res) {
         checkProg();
 
         res.render("viewgoal", { "view": data[0] })
+    })
+})
+
+// route for creating a stake (placing a wager on a goal) 
+app.post("/stake/create", function (req, res) {
+    var query1 = "INSERT INTO wagers SET ?";
+    var params1 = {
+        "wager_amount": req.body.wager_amount,
+        "wager_fill": 0,
+        "goal_id": req.body.id,
+        "user_id": req.session.user_id
+    };
+    connection.query(query1, params1, function (err, data) {
+        if (err) throw err;
+    })
+    var query2 = "UPDATE users SET ? WHERE ?";
+    var params2 = [
+        {
+            "credits": req.body.credits - req.body.wager_amount
+        },
+        {
+            "id": req.session.user_id
+        }
+    ];
+    connection.query(query2, params2, function (err, data) {
+        if (err) throw err;
+        res.send(data);
     })
 })
 
