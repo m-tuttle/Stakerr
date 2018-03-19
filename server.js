@@ -77,6 +77,7 @@ app.post("/", function (req, res) {
 
     res.redirect("/")
 })
+})
 
 // my account view display route
 app.get("/myaccount", function (req, res) {
@@ -269,10 +270,16 @@ app.post("/newuser", function (req, res) {
 
 // set server to listen 
 var port = process.env.PORT || 3000;
-app.listen(port);
+app.listen(port, function(error){
+    if (error) {
+throw error;
+    }
+    console.log('asfeasdasfd')
+});
 
 
-/////// page functions
+
+///// page functions
 
 
 $("#shortTerm, #longTerm").on("click", function () {
@@ -307,3 +314,4 @@ $(".buyIn").on("click", function () {
         Materialize.toast('Insufficient Funds', 4000)
     }
 });
+
