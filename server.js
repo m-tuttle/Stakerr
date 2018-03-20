@@ -317,15 +317,23 @@ app.get("/login", function (req, res) {
 
 // user loggin in
 app.post("/userlogin", function (req, res) {
-    var query = "SELECT * FROM users WHERE user=?"
+    var query = "SELECT * FROM users WHERE user=?";
+
     connection.query(query, [req.body.user], function (err, data) {
         if (err) throw err;
-        if (req.body.user_pw === data[0].user_pw) {
+        if(data.length !== 0) {
+            if (req.body.user_pw === data[0].user_pw) {
             req.session.logged_in = true;
             req.session.user_id = data[0].id;
             req.session.credits = data[0].credits;
             res.redirect("/");
-        } else {
+            } else {
+            res.redirect("/login");
+            alert("Incorrect login. Please try again.")
+            console.log("Incorrect login");
+            }
+        }
+        else {
             res.redirect("/login");
             alert("Incorrect login. Please try again.")
             console.log("Incorrect login");
