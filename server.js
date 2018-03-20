@@ -69,11 +69,10 @@ app.get("/", function (req, res) {
 
     if (req.session.logged_in) {
 
-        var query = "SELECT u.user, g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, g.prog, f.total FROM users u LEFT JOIN goals g ON u.id=g.user_id LEFT JOIN fol f ON g.user_id=f.user_id WHERE g.complete=0";
+        var query = "SELECT u.user, g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, g.prog, g.follows FROM users u LEFT JOIN goals g ON u.id=g.user_id LEFT JOIN fol f ON g.user_id=f.user_id WHERE g.complete=0";
 
         connection.query(query, function (err, data) {
             if (err) throw err;
-            
             
             res.render("goalsfeed", { "goals": data });
         })
@@ -91,10 +90,20 @@ app.post("/follow/:goalid", function (req, res) {
     
     var user = req.session.user_id;
 
-    var query = "SELECT f.fol, f.user_id, f.goal_id FROM fol f WHERE user_id=" + user + " AND goal_id=" + goal + "";
+    var query = "SELECT f.fol, f.user_id, f.goal_id, f.total FROM fol f WHERE user_id=" + user + " AND goal_id=" + goal + "";
+
+    var folsquery = "SELECT * FROM fol f WHERE goal_id=" + goal + "";
+    
+    var fols;
+
+    connection.query(folsquery, function (err, data) {
+        if (err) throw err;
+        fols=data[0].total;
+        console.log(fols + " following");
+    })
 
     connection.query(query, function(err, data) {
-        
+        console.log(data);
         if(data.length === 0) {
         
         var post = "INSERT INTO fol SET ?";
@@ -107,21 +116,18 @@ app.post("/follow/:goalid", function (req, res) {
             if (err) throw err;
             console.log("successfully added to the table.");
 
-                var update = "UPDATE goals SET user_following=1 WHERE goal_id=" + goal + " AND user_id=" + user + "";
-                connection.query(update, function(err, data) {
-                if (err) throw err;
-                console.log("New Follow!");
-
-                    var follow = "SELECT goal_id, SUM(fol) FROM fol GROUP BY goal_id";
+                var follow = "SELECT goal_id, SUM(fol) FROM fol GROUP BY goal_id";
 
                     connection.query(follow, function(err, data) {
                         if (err) throw err;
                             var selection = data[goal-1];
                             var second = Object.keys(selection)[1];
                             var tot = selection[second];
-                            console.log(tot);
+                            console.log(tot + "total");
+                            console.log(goal + "goal");
                         if(data.length !== 0) {
-                            var update = "UPDATE fol SET total=" + tot + " where goal_id=" + goal +"";
+                            var update = "UPDATE goals SET user_following=1, follows=" + tot + " where goal_id=" + goal +"";
+                            console.log(update);
                             connection.query(update, function (err, data) {
                             if (err) throw err;
                             console.log("Successfully updated follows!")
@@ -131,8 +137,6 @@ app.post("/follow/:goalid", function (req, res) {
                 
             
         })
-        })
-            res.send();
             res.redirect("/");
         }
         else {
