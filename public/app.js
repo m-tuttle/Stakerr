@@ -84,7 +84,6 @@ $(document).ready(function () {
     max = $("#maxWager").text();
     raised = $("#raised").text();
     account = $("#balanceAmount").text();
-    $("#account").text(account);
     console.log(max);
     console.log(raised);
     console.log(account);

@@ -8,7 +8,6 @@ var { JSDOM } = jsdom;
 var { window } = new JSDOM(`<!DOCTYPE html>`);
 var $ = require('jQuery')(window);
 
-
 var app = module.exports = express();
 
 app.use("/public", express.static('public'));
@@ -315,6 +314,8 @@ app.get("/login", function (req, res) {
     res.render("login")
 })
 
+app.locals.userBalance = 0;
+
 // user loggin in
 app.post("/userlogin", function (req, res) {
     var query = "SELECT * FROM users WHERE user=?";
@@ -326,6 +327,7 @@ app.post("/userlogin", function (req, res) {
             req.session.logged_in = true;
             req.session.user_id = data[0].id;
             req.session.credits = data[0].credits;
+            app.locals.userBalance = req.session.credits;
             res.redirect("/");
             } else {
             res.redirect("/login");
@@ -369,6 +371,18 @@ app.post("/newuser", function (req, res) {
         }
     })
 })
+
+// CONTROLLER FUNCTIONS
+
+// var appController = require("./controllers/appcontrollers.js");
+// var followController = require("./controllers/followcontrollers.js");
+// var stakeController = require("./controllers/stakecontrollers.js");
+// var userController = require("./controllers/usercontrollers.js");
+
+// app.use("/", appController);
+// app.use("/follow", followController);
+// app.use("/stake", stakeController);
+// app.use("/user", userController);
 
 // set server to listen 
 var port = process.env.PORT || 3000;
