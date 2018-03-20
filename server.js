@@ -264,18 +264,10 @@ app.post("/stake/create", function (req, res) {
     connection.query(query2, params2, function (err, data) {
         if (err) throw err;
     })
-<<<<<<< HEAD
 
     
     var goalquery = "SELECT * FROM goals WHERE ?";
     var goalparams = [
-=======
-    var query3 = "UPDATE goals SET ? WHERE ?";
-    var params3 = [
-        {
-            "raised": parseInt(req.body.raised)
-        }, 
->>>>>>> dc2f3f7ec8eec597eb327f58b48e4a2a59e3cb5c
         {
             "goal_id": req.body.goal_id
         }
