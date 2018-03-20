@@ -20,3 +20,7 @@ h5, p, h6, #mid {
 #star {
     color: red;
 }
+
+.brand-logo {
+    margin-left: 30px;
+}
