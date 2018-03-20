@@ -71,20 +71,11 @@ app.get("/", function (req, res) {
 
         var query = "SELECT u.user, g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, g.prog, g.follows FROM users u LEFT JOIN goals g ON u.id=g.user_id WHERE g.complete=0";
 
-        var followed = "SELECT * FROM fol WHERE user_id=" + req.session.user_id + "";
-
-        connection.query(followed, function (err, data) {
-            
-        })
-
         connection.query(query, function (err, data) {
             if (err) throw err;
             for (var i=0; i<data.length; i++) {
                 if (data[i].user_following === 0) {
                     data[i].user_following = "Follow";
-                }
-                else {
-                    data[i].user_following = "Followed";
                 }
             }
             res.render("goalsfeed", { "goals": data });
@@ -167,6 +158,7 @@ app.post("/follow/:goalid", function (req, res) {
                     })}
                 
         else {
+            alert("You are already following this goal.");
             console.log("You are already following this goal.");
             res.redirect("/");
         }
