@@ -58,8 +58,6 @@ $(".buyIn").on("click", function () {
             },
             function (err, res) {
                 if (err) throw err;
-                console.log(res);
-                checkProg();
             })
     }
     else if (bet <= 0) {

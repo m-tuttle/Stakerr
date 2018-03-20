@@ -292,10 +292,10 @@ app.post("/stake/create", function (req, res) {
         }
     ];
     connection.query(query3, params3, function (err, data) {
-        if (err) throw err;
-        req.session.credits = params2[0].credits;
-        res.send(data);
+        if (err) throw err; 
     })
+    req.session.credits = params2[0].credits;
+    res.send();
 })
 
 
