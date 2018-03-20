@@ -1,0 +1,45 @@
+<div class = "wrapper">
+<div class="card-action-contact">
+    <h5>Contact us!</h5>
+    <hr>
+                    <form action="/contact" method="POST">
+                        <div class="input-field-contact">
+                        <input placeholder="ENTER EMAIL" id="user_name" type="email" class="validate" name="contacter" required>
+                        <label for="username">Email</label>
+                        </div>
+                        <br>
+                        <div class="input-field-contact">
+                        <input placeholder="ENTER FEEDBACK" id="feedback" type="text" class="validate" name="feedback" required data-length="200">
+                        <label for="password">Feedback</label>
+                        </div>
+                        <br>
+                        
+                        <button type="submit" class="waves-effect waves-light btn" id="contactButton">Submit Feedback</button>
+                        <br>
+                        <br>
+                    </form>
+
+                </div>
+                </div>
+
+                <style>
+                    .card-action-contact {
+                        max-width:60%;
+                        margin-left:20%;
+                        margin-top: 35px;
+                        align-content: center;
+                        background-color: #596D78;
+                        padding: 20px;
+                        box-shadow: -12px 11px 36px 8px rgba(0,0,0,0.56);
+                    }
+
+                    .input-field-contact {
+                        color:white;
+                    }
+                    h5 {
+                        color: white;
+                    }
+                    
+                </style>
+
+               

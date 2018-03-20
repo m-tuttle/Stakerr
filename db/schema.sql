@@ -3,7 +3,7 @@ CREATE DATABASE project_db;
 
 USE project_db;
 
-CREATE TABLE users(
+CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
   user VARCHAR(45) NOT NULL,
   email VARCHAR(45) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE users(
   PRIMARY KEY (id)
 );
 
-CREATE TABLE goals(
+CREATE TABLE goals (
   user_id INT NOT NULL,
   goal_id INT NOT NULL AUTO_INCREMENT,
   goal_text VARCHAR(50) NOT NULL,
@@ -44,4 +44,9 @@ CREATE TABLE fol(
   user_id INT NOT NULL,
   goal_id INT NOT NULL,
   PRIMARY KEY (follow_id)
+);
+
+CREATE TABLE feedback (
+  contacter VARCHAR (20),
+  feedback VARCHAR (500)
 );
