@@ -1,4 +1,8 @@
 // Random quote generator
+
+// var express = require('express');
+// var router  = express.Router();
+
 var query = "https://talaikis.com/api/quotes/random/";
 
 $.ajax({
@@ -23,7 +27,7 @@ var max = 400;
 var updateProg = function () {
     var prog = (raised / max) * 100;
     $("#progressBarView").attr("style", "width:" + prog + "%");
-    $("#prgsView").text(raised + " / " + max);
+    // $("#prgsView").text(raised + " / " + max);
     // $("#balance").text(account);
 }
 
@@ -52,10 +56,12 @@ $(".buyIn").on("click", function () {
         $.post("/stake/create",
             {
                 "wager_amount": bet,
-                "id": $(".buyIn").attr("data-goal"),
-                "credits": $("#balance").text()
+                "goal_id": $(".buyIn").attr("data-goal"),
+                "credits": $("#balance").text(),
+                "raised": parseInt($("#prgsView").text())
             },
             function (err, res) {
+                if (err) throw err;
                 console.log(res);
             })
     }

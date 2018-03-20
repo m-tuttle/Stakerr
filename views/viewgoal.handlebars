@@ -30,7 +30,7 @@
     <div class="progress">
             <div class="determinate" id="progressBarView"></div>
     </div>
-    <p class="center-align teal-text"><span id="prgsView">{{view.raised}} / {{view.max_wager}}</span></p>
+    <p class="center-align teal-text"><span id="prgsView">{{view.raised}}</span> / <span>{{view.max_wager}}</span></p>
 
     <br>
 
@@ -69,7 +69,7 @@
             </div>
         </div>
         <div class="modal-footer">
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat buyIn" data-goal="{{view.id}}">Stake</a>
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat buyIn" data-goal="{{view.goal_id}}">Stake</a>
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
         </div>
 </div>

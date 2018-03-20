@@ -179,16 +179,13 @@ var max;
 
 // view goal display route
 app.get("/view/:goalid", function (req, res) {
-    var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.fol FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.goal_id=?";
+    var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.fol, g.goal_id FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.goal_id=?";
 
     connection.query(query, [parseInt(req.params.goalid)], function (err, data) {
         if (err) throw err;
-        console.log(data);
         balance = data[0].credits;
         raised = data[0].raised;
         max = data[0].max_wager;
-
-        console.log(raised);
 
         // $(".update").on("click", function () {
         //     $("#account").text(balance);
@@ -224,7 +221,7 @@ app.post("/stake/create", function (req, res) {
     var params1 = {
         "wager_amount": req.body.wager_amount,
         "wager_fill": 0,
-        "goal_id": req.body.id,
+        "goal_id": req.body.goal_id,
         "user_id": req.session.user_id
     };
     connection.query(query1, params1, function (err, data) {
@@ -242,9 +239,20 @@ app.post("/stake/create", function (req, res) {
     connection.query(query2, params2, function (err, data) {
         if (err) throw err;
         req.session.credits = params2[0].credits;
-        console.log(req.session);
-        res.send(data);
     })
+    var query3 = "UPDATE goals SET ? WHERE ?";
+    var params3 = [
+        {
+            "raised": parseInt(req.body.raised) + parseInt(req.body.wager_amount)
+        }, 
+        {
+            "goal_id": req.body.goal_id
+        }
+    ];
+    connection.query(query3, params3, function (err, data) {
+        if (err) throw err;
+    })
+    res.send({"text": "test"});
 })
 
 
