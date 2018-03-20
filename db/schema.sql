@@ -22,6 +22,7 @@ CREATE TABLE goals (
   raised INT DEFAULT 0,
   max_wager INT NOT NULL,
   descript VARCHAR (250),
+  prog INT NOT NULL DEFAULT 0,
   follows INT DEFAULT 0,
   user_following BOOLEAN DEFAULT 0,
   complete BOOLEAN DEFAULT 0,

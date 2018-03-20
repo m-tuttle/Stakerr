@@ -69,11 +69,12 @@ app.get("/contact", function (req, res) {
 app.get("/", function (req, res) {
 
     if (req.session.logged_in) {
-        var query = "SELECT g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, f.total, f.fol FROM goals g LEFT JOIN fol f ON g.goal_id=f.follow_id WHERE g.complete=0";
 
+        var query = "SELECT u.user, g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, g.prog, f.total FROM users u LEFT JOIN goals g ON u.id=g.user_id LEFT JOIN fol f ON g.goal_id=f.goal_id WHERE g.complete=0";
 
         connection.query(query, function (err, data) {
             if (err) throw err;
+            console.log(data);
             for(var i=0; i < data.length; i++) {
                 if(data[i].user_following === 0) {
                 data[i].user_following = "Follow";
