@@ -3,7 +3,7 @@ VALUES
     ("Mike", "mike.s.tuttle@gmail.com", "7083723293", "chicago"),
     ("John", "john@fake.com", "3333334444", "password"),
     ("Luke", "luke@fake.com", "9991112222", "password"),
-    ("jaystep", "jstepanovich91@gmail.com", "8477156640", "9idc1991");
+    ("jaystep", "jstepanovich91@gmail.com", "8477156640", "password");
 
 INSERT INTO goals (user_id, goal_text, goal_start, goal_end, raised, max_wager, follows)
 VALUES 
