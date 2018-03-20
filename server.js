@@ -73,7 +73,6 @@ app.get("/", function (req, res) {
 
         connection.query(query, function (err, data) {
             if (err) throw err;
-            console.log(data);
             for(var i=0; i < data.length; i++) {
                 if(data[i].user_following === 0) {
                 data[i].user_following = "Follow";
@@ -219,52 +218,32 @@ var max;
 
 // view goal display route
 app.get("/view/:goalid", function (req, res) {
-    var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.follows, g.goal_id, g.goal_end FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.goal_id=?";
+    var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.follows, g.goal_id, g.goal_end, g.prog FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.goal_id=?";
 
     connection.query(query, [parseInt(req.params.goalid)], function (err, data) {
         if (err) throw err;
-        balance = data[0].credits;
-        raised = data[0].raised;
-        max = data[0].max_wager;
-
-        // $(".update").on("click", function () {
-        //     $("#account").text(balance);
-        // });
-
-
-        var updateProg = function () {
-            var prog = (raised / max) * 100;
-            $("#progressBarView").attr("style", "width:" + prog + "%");
-        }
-
-        var checkProg = function () {
-            if (raised < max) {
-                updateProg();
-            }
-            else {
-                updateProg();
-                $("#progressBarView").attr("style", "width:100%");
-                $("#prgsView").text("Complete!");
-                $(".interaction").remove();
-            }
-        };
-
-        checkProg();
 
         res.render("viewgoal", { "view": data[0], "user_credits": req.session.credits })
     })
 })
 
-
+var gid;
+var wam;
+var uid;
+var maxWager;
+var r;
 
 // route for creating a stake (placing a wager on a goal) 
 app.post("/stake/create", function (req, res) {
     var query1 = "INSERT INTO wagers SET ?";
+    gid = req.body.goal_id;
+    wam = parseInt(req.body.wager_amount);
+    uid = req.session.user_id;
     var params1 = {
-        "wager_amount": req.body.wager_amount,
-        "wager_fill": 0,
-        "goal_id": req.body.goal_id,
-        "user_id": req.session.user_id
+        "wager_amount": wam,
+        "wager_fill": 10,
+        "goal_id": gid,
+        "user_id": uid
     };
     connection.query(query1, params1, function (err, data) {
         if (err) throw err;
@@ -281,18 +260,48 @@ app.post("/stake/create", function (req, res) {
     connection.query(query2, params2, function (err, data) {
         if (err) throw err;
     })
+<<<<<<< HEAD
+
+    
+    var goalquery = "SELECT * FROM goals WHERE ?";
+    var goalparams = [
+=======
     var query3 = "UPDATE goals SET ? WHERE ?";
     var params3 = [
         {
             "raised": parseInt(req.body.raised)
         }, 
+>>>>>>> dc2f3f7ec8eec597eb327f58b48e4a2a59e3cb5c
         {
             "goal_id": req.body.goal_id
         }
-    ];
-    connection.query(query3, params3, function (err, data) {
-        if (err) throw err; 
+    ]
+
+    connection.query(goalquery, goalparams, function (err, data) {
+        if (err) throw err;
+        console.log("updating goal table");
+        raised = data[0].raised;
+        maxWager = data[0].max_wager;
+        newAmount = parseInt(raised + wam);
+        var query3 = "UPDATE goals SET ? WHERE ?";
+        var prog = (newAmount / parseInt(maxWager)) * 100;
+        console.log(raised, wam, newAmount, maxWager, prog, gid, " hello" );
+    
+        var params3 = [
+            {
+                "raised": raised + wam,
+                "prog": prog
+            }, 
+            {
+                "goal_id": gid
+            }
+        ];
+            connection.query(query3, params3, function (err, data) {
+            if (err) throw err; 
+        })
     })
+
+
     req.session.credits = params2[0].credits;
     res.send();
 })
