@@ -247,7 +247,7 @@ var max;
 
 // view goal display route
 app.get("/view/:goalid", function (req, res) {
-    var query = "SELECT u.user, u.credits, g.goal_text, g.descript, g.max_wager, g.raised, g.follows, g.goal_id, g.goal_end, g.prog FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.goal_id=?";
+    var query = "SELECT u.user, u.id, u.credits, g.goal_text, g.descript, g.max_wager, g.raised, g.follows, g.goal_id, g.goal_end, g.prog FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.goal_id=?";
 
     connection.query(query, [parseInt(req.params.goalid)], function (err, data) {
         if (err) throw err;
