@@ -284,7 +284,7 @@ app.post("/stake/create", function (req, res) {
     var query3 = "UPDATE goals SET ? WHERE ?";
     var params3 = [
         {
-            "raised": parseInt(req.body.raised) + parseInt(req.body.wager_amount)
+            "raised": parseInt(req.body.raised)
         }, 
         {
             "goal_id": req.body.goal_id
