@@ -102,19 +102,16 @@
                                 <ul>
                                     <li><i><span id="username">{{user}}</span></i></li>
                                     <li><span id="goal">{{goal_text}}</span></li><br>
-                                    <li><i>About <span id="endDate">20 minutes </span>remaining</i></li>
+                                    <li>End Date: {{dateConversion goal_end}}</li>
                                 </ul>
                             </p>
                             </div>
                             <div class="row">
                                 <div class="col s4">
-                                <button class="btn modal-trigger" data-target="modal1" id="mdl1" style="margin-left: 8%">Stake</button>
+                                <a href="/view/{{goal_id}}"><button class="btn" style="margin-left: 10%">View</button></a>
                                 </div>
                                 <div class="col s4">
-                                <p><i>60 credits remaining</i></p>
-                                </div>
-                                <div class="col s4">
-                                <button class="btn" style="float:right"><span id="follow"> Follow</span></button>
+                                <p><i>Max Stake: {{max_wager}}</i></p>
                                 </div>
                             </div>
                         </div>
