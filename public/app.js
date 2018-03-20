@@ -20,6 +20,7 @@ var selected;
 var updateProg = function () {
     var prog = (raised / max) * 100;
     $("#progressBarView").attr("style", "width:" + prog + "%");
+    $("#raised").text(raised);
     // $("#prgsView").text(raised + " / " + max);
     // $("#balance").text(account);
 }
@@ -79,9 +80,9 @@ $(".buyIn").on("click", function () {
 $(document).ready(function () {
     // $("#balance").text(account);
     $('.carousel').carousel();
-    max = $("#maxWager").text();
-    raised = $("#raised").text();
-    account = $("#balanceAmount").text();
+    max = parseInt($("#maxWager").text());
+    raised = parseInt($("#raised").text());
+    account = parseInt($("#balanceAmount").text());
     console.log(max);
     console.log(raised);
     console.log(account);
