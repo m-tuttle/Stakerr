@@ -69,11 +69,24 @@ app.get("/", function (req, res) {
 
     if (req.session.logged_in) {
 
-        var query = "SELECT u.user, g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, g.prog, g.follows FROM users u LEFT JOIN goals g ON u.id=g.user_id LEFT JOIN fol f ON g.user_id=f.user_id WHERE g.complete=0";
+        var query = "SELECT u.user, g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, g.prog, g.follows FROM users u LEFT JOIN goals g ON u.id=g.user_id WHERE g.complete=0";
+
+        var followed = "SELECT * FROM fol WHERE user_id=" + req.session.user_id + "";
+
+        connection.query(followed, function (err, data) {
+            
+        })
 
         connection.query(query, function (err, data) {
             if (err) throw err;
-            
+            for (var i=0; i<data.length; i++) {
+                if (data[i].user_following === 0) {
+                    data[i].user_following = "Follow";
+                }
+                else {
+                    data[i].user_following = "Followed";
+                }
+            }
             res.render("goalsfeed", { "goals": data });
         })
     } else {
@@ -98,12 +111,18 @@ app.post("/follow/:goalid", function (req, res) {
 
     connection.query(folsquery, function (err, data) {
         if (err) throw err;
-        fols=data[0].total;
+        if (data.length !== 0) {
+        fols = data[0].total;
         console.log(fols + " following");
+        }
+        else {
+            fols = 0;
+            console.log("No follows for this goal yet.")
+        }
     })
 
     connection.query(query, function(err, data) {
-        console.log(data);
+
         if(data.length === 0) {
         
         var post = "INSERT INTO fol SET ?";
@@ -120,34 +139,42 @@ app.post("/follow/:goalid", function (req, res) {
 
                     connection.query(follow, function(err, data) {
                         if (err) throw err;
+                            
+                        if(data.length !== 0) {
+                            console.log(data);
                             var selection = data[goal-1];
+                            console.log(selection);
                             var second = Object.keys(selection)[1];
                             var tot = selection[second];
-                            console.log(tot + "total");
-                            console.log(goal + "goal");
-                        if(data.length !== 0) {
-                            var update = "UPDATE goals SET user_following=1, follows=" + tot + " where goal_id=" + goal +"";
-                            console.log(update);
-                            connection.query(update, function (err, data) {
-                            if (err) throw err;
-                            console.log("Successfully updated follows!")
-                    })
-                    }
-                })
+                            console.log(tot);
+
+                            var qry = "SELECT g.goal_id, g.user_id, g.user_following FROM goals g WHERE goal_id=" + goal + " AND user_id=" + user + "";
+                            connection.query(qry, function(err, data) {
+                                console.log(qry);
+                                console.log(data);
+                                if (err) throw err;
+                                if (data.length === 0){
+                                    var update = "UPDATE goals SET follows=" + tot + " WHERE goal_id=" + goal +"";
+                                    console.log(update);
+                                    connection.query(update, function (err, data) {
+                                    if (err) throw err;
+                                    console.log("Successfully updated follows!")
+                                })
+                                }
+                                });
+                        }
+                        res.redirect("/") });
+                    })}
                 
-            
-        })
-            res.redirect("/");
-        }
         else {
             console.log("You are already following this goal.");
             res.redirect("/");
         }
-        
-    });
-
     
+        })
 });
+
+
 
 
 
@@ -279,7 +306,6 @@ app.post("/stake/create", function (req, res) {
         newAmount = parseInt(raised + wam);
         var query3 = "UPDATE goals SET ? WHERE ?";
         var prog = (newAmount / parseInt(maxWager)) * 100;
-        console.log(raised, wam, newAmount, maxWager, prog, gid, " hello" );
     
         var params3 = [
             {
@@ -391,10 +417,8 @@ app.post("/newuser", function (req, res) {
 // set server to listen 
 var port = process.env.PORT || 3000;
 app.listen(port, function(error){
-    if (error) {
-throw error;
-    }
-    console.log('asfeasdasfd')
+    if (error) throw error;
+    console.log('Connected.')
 });
 
 
