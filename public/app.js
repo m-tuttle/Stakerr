@@ -53,12 +53,13 @@ $(".buyIn").on("click", function () {
             {
                 "wager_amount": bet,
                 "goal_id": $(".buyIn").attr("data-goal"),
-                "credits": $("#balance").text(),
+                "credits": $("#balanceAmount").text(),
                 "raised": parseInt($("#prgsView").text())
             },
             function (err, res) {
                 if (err) throw err;
                 console.log(res);
+                checkProg();
             })
     }
     else if (bet <= 0) {
