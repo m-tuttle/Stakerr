@@ -5,7 +5,7 @@ VALUES
     ("Luke", "luke@fake.com", "9991112222", "password"),
     ("jaystep", "jstepanovich91@gmail.com", "8477156640", "9idc1991");
 
-INSERT INTO goals (user_id, goal_text, goal_start, goal_end, raised, max_wager, fol)
+INSERT INTO goals (user_id, goal_text, goal_start, goal_end, raised, max_wager, follows)
 VALUES 
     (1, "Win in Super Smash Bros", "2018/3/15", "2018/3/30", 0, 500, 2),
     (2, "Build a wooden dresser", "2018/3/15", "2018/4/30", 0, 400, 2),

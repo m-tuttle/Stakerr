@@ -12,25 +12,29 @@
 </head>
 	<body>
 
+    <div class="container-fluid">
 	<div class="navbar-fixed">
             <nav>
                 <div class="nav-wrapper teal">
                     <a href="#!" class="brand-logo">Stakerr</a>
-                    <ul class="right hide-on-med-and-down">
+                        <ul class="right hide-on-med-and-down">
                         <li><a href="/">Home</a></li>
                         <li><a href="/myaccount">My Account</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
+                        <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </span>
                     
                 </div>
             </nav>
     </div>
-		
+    </div>
+	
 		{{{ body }}}
 
     
 <!-- Element Showed -->
 
+<div class="container-fluid">
   <div class="fixed-action-btn update" style="bottom: 45px; right: 24px;">
         <a id="menu" class="btn btn-floating btn-large teal"  onclick="$('.tap-target').tapTarget('open')"><i class="material-icons">menu</i></a>
       </div>
@@ -40,16 +44,15 @@
     <div class="tap-target-content white-text">
       <h5>Your Balance</h5>
       <h6><span id="account"></span></h6>
-      <br>
-      <h5>Recently Followed</h5>
-      <p></p>
     </div>
   </div>
 
 	<footer class="page-footer teal">
         <p>Copyright © 2018 Stakerr</p>
+        <br>
     </footer>
-		
+    </div>
+    
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script src="/public/app.js"></script>

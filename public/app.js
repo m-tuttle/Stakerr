@@ -15,14 +15,7 @@ $.ajax({
 
 var selected;
 
-$(document).on("click", ".interaction", function () {
-    console.log(this);
-});
-
 // Stake logic
-var account = 500;
-var raised = 200;
-var max = 400;
 
 var updateProg = function () {
     var prog = (raised / max) * 100;
@@ -43,7 +36,10 @@ var checkProg = function () {
     }
 };
 
-checkProg();
+var max;
+var raised;
+var account;
+
 
 $(".buyIn").on("click", function () {
     var bet = parseInt($("#stk").val());
@@ -77,10 +73,6 @@ $(".buyIn").on("click", function () {
     }
 })
 
-// $(".update").on("click", function () {
-//     $("#account").text(account);
-// });
-
 
 
 // Modal activation
@@ -88,6 +80,13 @@ $(".buyIn").on("click", function () {
 $(document).ready(function () {
     // $("#balance").text(account);
     $('.carousel').carousel();
+    max = $("#maxWager").text();
+    raised = $("#raised").text();
+    account = $("#balanceAmount").text();
+    $("#account").text(account);
+    console.log(max);
+    console.log(raised);
+    console.log(account);
     $("#mdl1").on("click", function () {
 
         if ($("#stake").val() > max) {
@@ -132,16 +131,8 @@ $("#mdl1").on("click", function () {
     $("#modalGoalEnd").text($("#timeframeEntry").val());
 })
 
+$(document).on("click", "#follow", function() {
 
+    $(this).html("<i class='material-icons'>check</i>")
 
-
-
-
-
-
-// Testing append on feed
-
-// $("#addRow").on("click", function() {
-//     console.log("hi");
-//     $("#feedGoals").append("<div class='row'><div class='col s3'></div><div class='card-panel col s6' style='text-align: center'>Goal Example</div><div class='col s3'></div></div>")
-// });
+})

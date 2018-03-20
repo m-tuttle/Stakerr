@@ -13,7 +13,7 @@
                         <li><span id="goal">{{view.goal_text}}</span></li><br>
                         <li>{{view.descript}}</li><br>
                         <li><i>Ends on <span id="endDate">{{view.end_date}}</span></i></li>
-                        <li><b><span id="following">{{view.fol}}</span> Following</b></li>
+                        <li><b><span id="following">{{view.follows}}</span> Following</b></li>
                     </ul>
                 </div>
                 <div class="card-action">
@@ -28,9 +28,9 @@
     <br>
 
     <div class="progress">
-            <div class="determinate" id="progressBarView"></div>
+            <div class="determinate" id="progressBarView" style="width: {{prog}}%"></div>
     </div>
-    <p class="center-align teal-text"><span id="prgsView">{{view.raised}}</span> / <span>{{view.max_wager}}</span></p>
+    <p class="center-align teal-text"><span id="prgsView"><span id="raised">{{view.raised}}</span> / <span id="maxWager">{{view.max_wager}}</span></span></p>
 
     <br>
 
@@ -62,7 +62,7 @@
                             <label for="stk">Stake Amount</label>
                             </div>
                         </li><br>
-                        <li>Your balance: <b><span id="balance">{{user_credits}}</span></b></li>
+                        <li>Your balance: <b><span id="balanceAmount">{{user_credits}}</span></b></li>
                         
                     </ul>
                 </p>
@@ -73,3 +73,4 @@
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
         </div>
 </div>
+

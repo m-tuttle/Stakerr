@@ -42,7 +42,8 @@ app.set("view engine", "handlebars");
 app.get("/", function (req, res) {
 
     if (req.session.logged_in) {
-        var query = "SELECT g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, f.fol FROM goals g LEFT JOIN fol f ON g.goal_id=f.goal_id WHERE g.complete=0";
+        var query = "SELECT g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, f.total, f.fol FROM goals g LEFT JOIN fol f ON g.goal_id=f.follow_id WHERE g.complete=0";
+
 
         connection.query(query, function (err, data) {
             if (err) throw err;
@@ -74,7 +75,6 @@ app.post("/follow/:goalid", function (req, res) {
     var query = "SELECT f.fol, f.user_id, f.goal_id FROM fol f WHERE user_id=" + user + " AND goal_id=" + goal + "";
 
     connection.query(query, function(err, data) {
-        console.log(data[goal]);
         
         if(data.length === 0) {
         
@@ -86,18 +86,34 @@ app.post("/follow/:goalid", function (req, res) {
                 "goal_id": goal
             }, function(err, data) {
             if (err) throw err;
-            console.log("successfully updated following table");
+            console.log("successfully added to the table.");
 
-                var update = "UPDATE goals SET user_following=1 WHERE goal_id=" + goal + "";
-                console.log(update);
+                var update = "UPDATE goals SET user_following=1 WHERE goal_id=" + goal + " AND user_id=" + user + "";
                 connection.query(update, function(err, data) {
                 if (err) throw err;
                 console.log("New Follow!");
+
+                    var follow = "SELECT goal_id, SUM(fol) FROM fol GROUP BY goal_id";
+
+                    connection.query(follow, function(err, data) {
+                        if (err) throw err;
+                            var selection = data[goal-1];
+                            var second = Object.keys(selection)[1];
+                            var tot = selection[second];
+                            console.log(tot);
+                        if(data.length !== 0) {
+                            var update = "UPDATE fol SET total=" + tot + " where goal_id=" + goal +"";
+                            connection.query(update, function (err, data) {
+                            if (err) throw err;
+                            console.log("Successfully updated follows!")
+                    })
+                    }
+                })
                 
             
         })
         })
-
+            res.redirect("/");
         }
         else {
             console.log("You are already following this goal.");
@@ -105,13 +121,10 @@ app.post("/follow/:goalid", function (req, res) {
         }
         
     });
+
     
 });
 
-    // var post = "UPDATE users SET following=true WHERE id=" + user + "";
-    // connection.query(post, [req.session.user_id], function (err, data) {
-    //     if (err) throw err;
-    // })
 
 
 
@@ -179,7 +192,7 @@ var max;
 
 // view goal display route
 app.get("/view/:goalid", function (req, res) {
-    var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.fol, g.goal_id FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.goal_id=?";
+    var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.follows, g.goal_id FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.goal_id=?";
 
     connection.query(query, [parseInt(req.params.goalid)], function (err, data) {
         if (err) throw err;
@@ -214,6 +227,8 @@ app.get("/view/:goalid", function (req, res) {
         res.render("viewgoal", { "view": data[0], "user_credits": req.session.credits })
     })
 })
+
+
 
 // route for creating a stake (placing a wager on a goal) 
 app.post("/stake/create", function (req, res) {
@@ -260,6 +275,11 @@ app.post("/stake/create", function (req, res) {
 //     var query2 = "UPDATE goals SET raised=? where id=?";
 //     var query3 = "UPDATE users SET credits=? where id=?";
 // })
+
+
+app.get("/logout", function(req, res) {
+    res.render("logout");
+})
 
 
 // login page
