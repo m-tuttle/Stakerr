@@ -69,19 +69,12 @@ app.get("/", function (req, res) {
 
     if (req.session.logged_in) {
 
-        var query = "SELECT u.user, g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, g.prog, f.total FROM users u LEFT JOIN goals g ON u.id=g.user_id LEFT JOIN fol f ON g.goal_id=f.goal_id WHERE g.complete=0";
+        var query = "SELECT u.user, g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, g.prog, f.total FROM users u LEFT JOIN goals g ON u.id=g.user_id LEFT JOIN fol f ON g.user_id=f.user_id WHERE g.complete=0";
 
         connection.query(query, function (err, data) {
             if (err) throw err;
-            for(var i=0; i < data.length; i++) {
-                if(data[i].user_following === 0) {
-                data[i].user_following = "Follow";
-                }
-                else {
-                data[i].user_following = "Followed";
-            }
             
-            }
+            
             res.render("goalsfeed", { "goals": data });
         })
     } else {
@@ -139,6 +132,7 @@ app.post("/follow/:goalid", function (req, res) {
             
         })
         })
+            res.send();
             res.redirect("/");
         }
         else {
@@ -222,7 +216,7 @@ var max;
 
 // view goal display route
 app.get("/view/:goalid", function (req, res) {
-    var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.follows, g.goal_id, g.goal_end, g.prog FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.goal_id=?";
+    var query = "SELECT u.user, u.credits, g.goal_text, g.descript, g.max_wager, g.raised, g.follows, g.goal_id, g.goal_end, g.prog FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.goal_id=?";
 
     connection.query(query, [parseInt(req.params.goalid)], function (err, data) {
         if (err) throw err;
