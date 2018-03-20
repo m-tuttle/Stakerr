@@ -219,7 +219,7 @@ var max;
 
 // view goal display route
 app.get("/view/:goalid", function (req, res) {
-    var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.follows, g.goal_id FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.goal_id=?";
+    var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.follows, g.goal_id, g.goal_end FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.goal_id=?";
 
     connection.query(query, [parseInt(req.params.goalid)], function (err, data) {
         if (err) throw err;
@@ -280,7 +280,6 @@ app.post("/stake/create", function (req, res) {
     ];
     connection.query(query2, params2, function (err, data) {
         if (err) throw err;
-        req.session.credits = params2[0].credits;
     })
     var query3 = "UPDATE goals SET ? WHERE ?";
     var params3 = [
@@ -293,8 +292,9 @@ app.post("/stake/create", function (req, res) {
     ];
     connection.query(query3, params3, function (err, data) {
         if (err) throw err;
+        req.session.credits = params2[0].credits;
+        res.send(data);
     })
-    res.send({"text": "test"});
 })
 
 
