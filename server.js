@@ -159,11 +159,15 @@ app.get("/myaccount", function (req, res) {
     if (req.session.logged_in) {
         var query1 = "SELECT * FROM users WHERE id=?"
         var query2 = "SELECT * FROM goals g WHERE user_id=?"
+        var query3 = "SELECT f.goal_id, g.goal_text, g.goal_end, g.max_wager, u.user FROM fol f LEFT JOIN goals g ON f.goal_id=g.goal_id LEFT JOIN users u ON g.user_id=u.id WHERE f.user_id=?;"
         connection.query(query1, [req.session.user_id], function (err, data1) {
             if (err) throw err;
             connection.query(query2, [req.session.user_id], function (err, data2) {
                 if (err) throw err;
-                res.render("accountview", { "users": data1[0], "goals": data2 })
+                connection.query(query3, [req.session.user_id], function (err, data3) {
+                    if (err) throw err;
+                    res.render("accountview", { "users": data1[0], "goals": data2, "follows": data3 });
+                })
             })
         })
     } else {
@@ -295,6 +299,7 @@ app.post("/stake/create", function (req, res) {
 
 
     req.session.credits = params2[0].credits;
+    app.locals.userBalance = req.session.credits;
     res.send();
 })
 
