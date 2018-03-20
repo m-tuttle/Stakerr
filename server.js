@@ -345,7 +345,8 @@ app.post("/newuser", function (req, res) {
     connection.query(query, [req.body.user], function (err, response) {
 
         if (response.length > 0) {
-            console.log("please select a new username")
+            console.log("please select a new username");
+            alert("Username already taken. Please try again.")
             res.redirect("/newuser")
 
         }
