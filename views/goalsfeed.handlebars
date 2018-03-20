@@ -9,7 +9,7 @@
                     <ul>
                         <li><i><span id="username">{{user}}</span></i></li>
                         <li><span id="goal">{{goal_text}}</span></li><br>
-                        <li><i>Ends on {{dateConversion goal_end}}</i></li>
+                        <li><i>Ends on {{goal_end}}</i></li>
                         <li><b><span id="following">{{fol}}</span> Following</b></li>
                     </ul>
                 </p>
@@ -26,7 +26,7 @@
                             <p class="center-align teal-text"><span id="prgsFeed">{{raised}} / {{max_wager}}</span></p>
                     </div>
                     <div class="col s4">
-                        <form action = "/" method = "POST">
+                        <form action = "/follow/{{goal_id}}" method = "POST">
                         <button class="btn interaction" style="float:right" data-num="{{goal_id}}"><span id="follow">{{user_following}}</span></button>
                         </form>
                     </div>

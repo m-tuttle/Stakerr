@@ -5,7 +5,8 @@ var connection = require("./config/connection.js");
 var jsdom = require("jsdom");
 var { JSDOM } = jsdom;
 var { window } = new JSDOM(`<!DOCTYPE html>`);
-var $ = require('jquery')(window);
+var $ = require('jQuery')(window);
+
 
 var app = module.exports = express();
 
@@ -15,7 +16,7 @@ var session = require("express-session");
 
 app.use(session({ secret: "app", resave: false, saveUninitialized: true, cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 } }));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Set Handlebars.
 var exphbs = require("express-handlebars");
@@ -36,25 +37,24 @@ var hbs = exphbs.create({
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
-var goal;
 
 // goals feed route (displays all the active goals)
 app.get("/", function (req, res) {
 
     if (req.session.logged_in) {
-        var query = "SELECT u.user, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, g.fol FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.complete=0";
+        var query = "SELECT g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, f.fol FROM goals g LEFT JOIN fol f ON g.goal_id=f.goal_id WHERE g.complete=0";
 
         connection.query(query, function (err, data) {
             if (err) throw err;
             for(var i=0; i < data.length; i++) {
-                console.log(data[i].user_following);
                 if(data[i].user_following === 0) {
                 data[i].user_following = "Follow";
                 }
                 else {
-                data[i].user_following = "<i class='material-icons'>check</i>";
+                data[i].user_following = "Followed";
             }
-        }
+            
+            }
             res.render("goalsfeed", { "goals": data });
         })
     } else {
@@ -64,16 +64,20 @@ app.get("/", function (req, res) {
 
 // feed following post route
 
-app.post("/", function (req, res) {
+
+app.post("/follow/:goalid", function (req, res) {
+
+    var goal = req.originalUrl.slice(-1);
     
     var user = req.session.user_id;
-    var goal = 3;
-    
+
     var query = "SELECT f.fol, f.user_id, f.goal_id FROM fol f WHERE user_id=" + user + " AND goal_id=" + goal + "";
 
     connection.query(query, function(err, data) {
-        console.log(data.length);
-        if(data.length === 0 || data[0].fol === 0) {
+        console.log(data[goal]);
+        
+        if(data.length === 0) {
+        
         var post = "INSERT INTO fol SET ?";
         connection.query(post, 
             {
@@ -84,19 +88,24 @@ app.post("/", function (req, res) {
             if (err) throw err;
             console.log("successfully updated following table");
 
-        var update = "UPDATE goals SET user_following=1 WHERE goal_id=" + goal + "";
-        console.log(update);
-        connection.query(update, function(err, data) {
-            if (err) throw err;
-            console.log("New Follow!");
+                var update = "UPDATE goals SET user_following=1 WHERE goal_id=" + goal + "";
+                console.log(update);
+                connection.query(update, function(err, data) {
+                if (err) throw err;
+                console.log("New Follow!");
+                
+            
         })
         })
 
         }
         else {
             console.log("You are already following this goal.");
+            res.redirect("/");
         }
-        // res.redirect("/");
+        
+    });
+    
 });
 
     // var post = "UPDATE users SET following=true WHERE id=" + user + "";
@@ -105,9 +114,6 @@ app.post("/", function (req, res) {
     // })
 
 
-    
-})
-})
 
 // my account view display route
 app.get("/myaccount", function (req, res) {
@@ -173,11 +179,7 @@ var max;
 
 // view goal display route
 app.get("/view/:goalid", function (req, res) {
-<<<<<<< HEAD
     var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.fol FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.goal_id=?";
-=======
-    var query = "SELECT u.user, u.credits, g.goal_text, g.max_wager, g.raised, g.fol, g.id FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.id=?";
->>>>>>> 3091cee1498d19fcaeefff91184c6732874888af
 
     connection.query(query, [parseInt(req.params.goalid)], function (err, data) {
         if (err) throw err;
@@ -314,6 +316,7 @@ throw error;
 
 
 ///// page functions
+
 
 
 $("#shortTerm, #longTerm").on("click", function () {
