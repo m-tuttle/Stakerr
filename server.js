@@ -39,6 +39,32 @@ app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
 
+// routing for contact form
+app.get("/contact", function (req, res) {
+    res.render("contact");
+  })
+
+
+  //post route for contact
+
+  app.post("/contact", function (req, res) {
+
+    var query = "SELECT * FROM feedback WHERE contacter = ?"
+
+    connection.query(query, [req.body.user], function (err, response) {
+
+       
+            var insert = "INSERT INTO feedback SET ?"
+            connection.query(insert, req.body, function (err, data) {
+                if (err) throw err;
+
+                res.redirect("/")
+            })
+        
+        })
+})
+
+
 // goals feed route (displays all the active goals)
 app.get("/", function (req, res) {
 
