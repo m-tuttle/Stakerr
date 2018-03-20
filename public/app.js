@@ -135,3 +135,9 @@ $(document).on("click", "#follow", function() {
     $(this).html("<i class='material-icons'>check</i>")
 
 })
+
+$(document).on("click", "#logout", function() {
+
+    $("#account").empty();
+
+})
