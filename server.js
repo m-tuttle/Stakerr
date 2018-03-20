@@ -2,6 +2,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var connection = require("./config/connection.js");
+var alert = require("alert-node");
 var jsdom = require("jsdom");
 var { JSDOM } = jsdom;
 var { window } = new JSDOM(`<!DOCTYPE html>`);
@@ -299,7 +300,8 @@ app.post("/userlogin", function (req, res) {
             res.redirect("/");
         } else {
             res.redirect("/login");
-            console.log("Incorrect login")
+            alert("Incorrect login. Please try again.")
+            console.log("Incorrect login");
         }
     })
 })
