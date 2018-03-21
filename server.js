@@ -37,6 +37,8 @@ var hbs = exphbs.create({
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
+var account;
+
 // routing for contact form
 app.get("/contact", function (req, res) {
     res.render("contact");
@@ -67,7 +69,6 @@ app.get("/contact", function (req, res) {
 app.get("/", function (req, res) {
 
     if (req.session.logged_in) {
-
         var query = "SELECT u.user, g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, g.prog, g.follows FROM users u LEFT JOIN goals g ON u.id=g.user_id WHERE g.complete=0";
 
         connection.query(query, function (err, data) {
@@ -179,7 +180,6 @@ app.get("/myaccount", function (req, res) {
         var query4 = "SELECT w.goal_id, w.wager_amount, g.goal_text, g.goal_end, g.max_wager, u.user, g.user_id FROM wagers w LEFT JOIN goals g ON w.goal_id=g.goal_id LEFT JOIN users u ON g.user_id=u.id WHERE w.user_id=?"
         connection.query(query1, [req.session.user_id], function (err, data1) {
             if (err) throw err;
-            app.locals.userBalance = data1[0].credits;
             connection.query(query2, [req.session.user_id], function (err, data2) {
                 if (err) throw err;
                 connection.query(query3, [req.session.user_id], function (err, data3) {
@@ -200,9 +200,8 @@ app.get("/myaccount", function (req, res) {
 
 app.post("/myaccount", function (req, res) {
     var query = "UPDATE users SET ? WHERE ?";
-    var newBalance = parseInt(req.session.credits) + 500;
-    console.log(req);
-    console.log(req.session.credits);
+    var newBalance = parseInt(app.locals.userBalance) + 500;
+    app.locals.userBalance = newBalance;
     var param = [
         {
             "credits": newBalance
@@ -267,6 +266,7 @@ var balance;
 var raised;
 var max;
 
+
 // view goal display route
 app.get("/view/:goalid", function (req, res) {
     var query = "SELECT u.user, u.id, u.credits, g.goal_text, g.descript, g.max_wager, g.raised, g.follows, g.goal_id, g.goal_end, g.prog FROM goals g LEFT JOIN users u ON u.id=g.user_id WHERE g.goal_id=?";
@@ -278,7 +278,7 @@ app.get("/view/:goalid", function (req, res) {
         connection.query(con, function(err, val) {
             if (err) throw err;
             
-            res.render("viewgoal", { "view": data[0], "user_credits": req.session.credits, "users": val})
+            res.render("viewgoal", { "view": data[0], "user_credits": app.locals.userBalance, "users": val})
         })
         
     })
@@ -296,9 +296,10 @@ app.post("/stake/create", function (req, res) {
     gid = req.body.goal_id;
     wam = parseInt(req.body.wager_amount);
     uid = req.session.user_id;
+    app.locals.userBalance -= wam;
     var params1 = {
         "wager_amount": wam,
-        "wager_fill": 10,
+        "wager_fill": 1,
         "goal_id": gid,
         "user_id": uid
     };
@@ -308,10 +309,10 @@ app.post("/stake/create", function (req, res) {
     var query2 = "UPDATE users SET ? WHERE ?";
     var params2 = [
         {
-            "credits": req.body.credits - req.body.wager_amount
+            "credits": app.locals.userBalance
         },
         {
-            "id": req.session.user_id
+            "id": uid
         }
     ];
     connection.query(query2, params2, function (err, data) {
@@ -355,14 +356,8 @@ app.post("/stake/create", function (req, res) {
 })
 
 
-// app.post("/updateview", function (req, res) {
-//     var query2 = "UPDATE goals SET raised=? where id=?";
-//     var query3 = "UPDATE users SET credits=? where id=?";
-// })
-
-
+// logout page
 app.get("/logout", function(req, res) {
-    $(".update").empty();
     res.render("logout");
     
 })
@@ -447,44 +442,5 @@ var port = process.env.PORT || 3000;
 app.listen(port, function(error){
     if (error) throw error;
     console.log('Connected.')
-});
-
-
-
-///// page functions
-
-
-
-$("#shortTerm, #longTerm").on("click", function () {
-    $("#timeframe").text(this.text);
-    if (this.text === "Long Term") {
-        $("#timeframeEntry").attr("type", "date")
-    }
-    else {
-        $("#timeframeEntry").attr("type", "time")
-    }
-})
-
-
-
-$(".buyIn").on("click", function () {
-    var bet = parseInt($("#stk").val());
-    var remaining = max - raised - bet;
-    if (account - bet >= 0 && bet > 0 && remaining >= 0) {
-        account -= bet;
-        raised += bet;
-        checkProg();
-        Materialize.toast('Stake successfully placed!', 4000)
-    }
-    else if (bet <= 0) {
-        Materialize.toast('Please enter a valid amount.', 4000);
-    }
-    else if (remaining < 0) {
-        remaining = max - raised;
-        Materialize.toast('Invalid Amount! Only ' + remaining + ' available left to stake.', 4000)
-    }
-    else {
-        Materialize.toast('Insufficient Funds', 4000)
-    }
 });
 

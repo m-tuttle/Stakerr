@@ -21,8 +21,7 @@ var updateProg = function () {
     var prog = (raised / max) * 100;
     $("#progressBarView").attr("style", "width:" + prog + "%");
     $("#raised").text(raised);
-    // $("#prgsView").text(raised + " / " + max);
-    // $("#balance").text(account);
+    $("#prgsView").text(raised + " / " + max);
 }
 
 var checkProg = function () {
@@ -45,6 +44,8 @@ var account;
 
 $(".buyIn").on("click", function () {
     var bet = parseInt($("#stk").val());
+    account = parseInt($("#ubal").text());
+    console.log(max, raised, bet, account);
     var remaining = max - raised - bet;
     if (account - bet >= 0 && bet > 0 && remaining >= 0) {
         account -= bet;
@@ -55,7 +56,7 @@ $(".buyIn").on("click", function () {
             {
                 "wager_amount": bet,
                 "goal_id": $(".buyIn").attr("data-goal"),
-                "credits": $("#balanceAmount").text(),
+                "credits": account,
                 "raised": parseInt($("#prgsView").text())
             },
             function (err, res) {
@@ -75,24 +76,15 @@ $(".buyIn").on("click", function () {
 })
 
 
-var loggedIn = false;
+
 // Modal activation
 
 $(document).ready(function () {
-    // $("#balance").text(account);
     $('.carousel').carousel();
     max = parseInt($("#maxWager").text());
     raised = parseInt($("#raised").text());
-    var loggedIn = parseInt($("#account").text());
-    var balance = parseInt($("#account").text()) + 500;
-    $("#account, #balanceAmount").text(balance);
-    
-    // if (!loggedIn) {
-    //     $("#account").text(balance);
-    // }
-    console.log(max);
-    console.log(raised);
-    console.log(account);
+    var newBalance = parseInt($("#bal").text()) + 500;
+    $("#bl").text(newBalance);
     $("#mdl1").on("click", function () {
 
         if ($("#stake").val() > max) {
@@ -106,18 +98,11 @@ $(document).ready(function () {
     })
     
     $("#mdl2").on("click", function() {
-        $("#bal").text()
-        if (parseInt($("#blnce").text()) !== loggedIn) {
-            alert("You may only add funds once per session.")
-            $("#account").text(balance);
-        }
-        else {
-            loggedIn = true; 
+        
             $(".modal-trigger").attr("data-target", "modal2");
             $("#modal2").modal();
-            $("#bal, #account").text(balance);
             
-        }
+        
     })
 
 });
@@ -158,8 +143,3 @@ $(document).on("click", "#follow", function() {
 
 })
 
-$(document).on("click", "#logout", function() {
-
-    $("#account").empty();
-
-})

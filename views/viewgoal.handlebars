@@ -17,10 +17,14 @@
                     </ul>
                 </div>
                 <div class="card-action">
-                <form action = "/follow/{{view.goal_id}}" method = "POST" id="flw">
-                  <a href="#" class="waves-effect waves-light teal-text interaction" onclick="document.getElementById('flw').submit()"><span id="follow">Follow</span></a>
-                  </form>
-                  <a href="#modal1" class="waves-effect waves-light modal-trigger teal-text interaction" id="mdl1">Stake</a>
+                    <div class="input-field inline">
+                    <form action = "/follow/{{view.goal_id}}" method = "POST" id="flw">
+                    <a href="#" class="waves-effect waves-light teal-text interaction" onclick="document.getElementById('flw').submit()"><span id="follow">Follow</span></a>
+                    </form>
+                    </div>
+                    <div class="input-field inline">
+                    <a href="#modal1" class="waves-effect waves-light modal-trigger teal-text interaction"  id="mdl1">Stake</a>
+                    </div>
                 </div>
               </div>
             </div>
@@ -61,7 +65,7 @@
                             <label for="stk">Stake Amount</label>
                             </div>
                         </li><br>
-                        <li>Your balance: <b><span id="balanceAmount">{{user_credits}}</span></b></li>
+                        <li>Your balance: <b><span id="ubal">{{userBalance}}</span></b></li>
                         
                     </ul>
                 </p>
