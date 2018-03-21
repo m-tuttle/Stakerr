@@ -83,6 +83,17 @@ $(document).ready(function () {
     $('.carousel').carousel();
     max = parseInt($("#maxWager").text());
     raised = parseInt($("#raised").text());
+
+    if($("#go").text() === "") {
+        $("#goals").append("<p>Add some goals!</p>");
+    }
+    if($("#st").text() === "") {
+        $("#stakes").append("<p>Make your stake!</p>");
+    }
+    if($("#fo").text() === "") {
+        $("#folo").append("<p>Go find some cool goals.</p>");
+    }
+
     var newBalance = parseInt($("#bal").text()) + 500;
     $("#bl").text(newBalance);
     $("#mdl1").on("click", function () {

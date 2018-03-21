@@ -12,7 +12,7 @@ body {
     flex: 1 0 auto;
   }
 
-h5, p, h6, #mid {
+h5, h6, #mid {
     text-align: center;
 }
 
@@ -27,4 +27,9 @@ h5, p, h6, #mid {
 
 .brand-logo {
     margin-left: 30px;
+}
+
+p {
+    text-align: center;
+    color: #8c8c8c
 }
