@@ -17,9 +17,10 @@
                     </ul>
                 </div>
                 <div class="card-action">
-                  <a href="#" class="waves-effect waves-light teal-text interaction"><span id="follow">Follow</span></a>
+                <form action = "/follow/{{view.goal_id}}" method = "POST" id="flw">
+                  <a href="#" class="waves-effect waves-light teal-text interaction" onclick="document.getElementById('flw').submit()"><span id="follow">Follow</span></a>
+                  </form>
                   <a href="#modal1" class="waves-effect waves-light modal-trigger teal-text interaction" id="mdl1">Stake</a>
-                  <a href="#" class="waves-effect waves-light teal-text">See More From This User</a>
                 </div>
               </div>
             </div>
@@ -38,11 +39,9 @@
 
     <h4 class="teal-text" id="mid">Check out what's trending</h4>
     <div class="carousel">
-            <a class="carousel-item" href="#one!"><img src="http://via.placeholder.com/300x300"></a>
-            <a class="carousel-item" href="#two!"><img src="http://via.placeholder.com/300x300"></a>
-            <a class="carousel-item" href="#three!"><img src="http://via.placeholder.com/300x300"></a>
-            <a class="carousel-item" href="#four!"><img src="http://via.placeholder.com/300x300"></a>
-            <a class="carousel-item" href="#five!"><img src="http://via.placeholder.com/300x300"></a>
+        {{#each users}}
+                    <a class="carousel-item" href="/view/{{goal_id}}"><img src="https://robohash.org/{{user_id}}png?bgset=bg2&size=180x180" id="info"></a>
+        {{/each}}
     </div>
 
 </div>
@@ -73,4 +72,3 @@
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
         </div>
 </div>
-

@@ -37,7 +37,6 @@ var hbs = exphbs.create({
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
-
 // routing for contact form
 app.get("/contact", function (req, res) {
     res.render("contact");
@@ -154,13 +153,13 @@ app.post("/follow/:goalid", function (req, res) {
                                 }
                                 });
                         }
-                        res.redirect("/") });
+                         });
                     })}
                 
         else {
             alert("You are already following this goal.");
             console.log("You are already following this goal.");
-            res.redirect("/");
+            
         }
     
         })
@@ -180,6 +179,7 @@ app.get("/myaccount", function (req, res) {
         var query4 = "SELECT w.goal_id, w.wager_amount, g.goal_text, g.goal_end, g.max_wager, u.user, g.user_id FROM wagers w LEFT JOIN goals g ON w.goal_id=g.goal_id LEFT JOIN users u ON g.user_id=u.id WHERE w.user_id=?"
         connection.query(query1, [req.session.user_id], function (err, data1) {
             if (err) throw err;
+            app.locals.userBalance = data1[0].credits;
             connection.query(query2, [req.session.user_id], function (err, data2) {
                 if (err) throw err;
                 connection.query(query3, [req.session.user_id], function (err, data3) {
@@ -195,6 +195,32 @@ app.get("/myaccount", function (req, res) {
         res.redirect("/login");
     }
 })
+
+// Add balance route
+
+app.post("/myaccount", function (req, res) {
+    var query = "UPDATE users SET ? WHERE ?";
+    var newBalance = parseInt(req.session.credits) + 500;
+    console.log(req);
+    console.log(req.session.credits);
+    var param = [
+        {
+            "credits": newBalance
+        },
+
+        {
+            "id": req.session.user_id
+        }
+    ];
+
+    connection.query(query, param, function (err, data) {
+        if (err) throw err;
+        console.log("Successfully added funds!");
+        res.redirect("/myaccount");
+    })
+})
+
+
 
 // create goal display route
 app.get("/create", function (req, res) {
@@ -248,7 +274,13 @@ app.get("/view/:goalid", function (req, res) {
     connection.query(query, [parseInt(req.params.goalid)], function (err, data) {
         if (err) throw err;
 
-        res.render("viewgoal", { "view": data[0], "user_credits": req.session.credits })
+        var con = "SELECT g.user_id, g.goal_id FROM goals g";
+        connection.query(con, function(err, val) {
+            if (err) throw err;
+            
+            res.render("viewgoal", { "view": data[0], "user_credits": req.session.credits, "users": val})
+        })
+        
     })
 })
 
@@ -319,7 +351,6 @@ app.post("/stake/create", function (req, res) {
 
 
     req.session.credits = params2[0].credits;
-    app.locals.userBalance = req.session.credits;
     res.send();
 })
 
@@ -331,7 +362,9 @@ app.post("/stake/create", function (req, res) {
 
 
 app.get("/logout", function(req, res) {
+    $(".update").empty();
     res.render("logout");
+    
 })
 
 
@@ -340,7 +373,6 @@ app.get("/login", function (req, res) {
     res.render("login")
 })
 
-app.locals.userBalance = 0;
 
 // user loggin in
 app.post("/userlogin", function (req, res) {

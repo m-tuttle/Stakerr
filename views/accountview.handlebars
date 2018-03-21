@@ -1,15 +1,16 @@
 <div class="container">
     <div class="row">
     <div class="card-panel col s7">
-            <img class="materialboxed" src="https://robohash.org/{{users.id}}png?bgset=bg2&size=185x185" id="info">
+            <img class="materialboxed" src="https://robohash.org/{{users.id}}png?bgset=bg2&size=185x185" style="padding:2%" id="info">
             <p>
                 <ul>
                     <li><h5><span id="username">{{users.user}}</span></h5></li>
                     <li>{{users.email}}</li>
                     <li>{{users.phone}}</li>
-                    <li>{{users.credits}} Credits</li>
-                    <li><a href="#">Add Credits</a></li>
-                    <li><a href="#">Update Contact Information</a></li>
+                    <li><span id="blnce">{{users.credits}}</span> Credits</li>
+                    <li><span id="addb"><a href="#modal2" class="waves-effect waves-light modal-trigger teal-text interaction" id="mdl2">Add Credits</a></span></li>
+                    
+                    {{!-- <li><a href="#">Update Contact Information</a></li> --}}
                 </ul>
             </p>
     </div>
@@ -18,9 +19,12 @@
             <p style="float: left">
                 <ul>
                     <li><h5><span id="friends">Friends List</span></h5></li>
-                    {{#each friends}}
+                    <li><i><p>C3PO</p></i></li>
+                    <li><i><p>R0B0</p></i></li>
+                    <li><i><p>BEEPBOOP</p></i></li>
+                    {{!-- {{#each friends}}
                     <li><i><p>{{friend}}</p></i></li>
-                    {{/each}}
+                    {{/each}} --}}
                 </ul>
             </p></div>
         </div>
@@ -43,9 +47,11 @@
                             </p>
                             </div>
                             <div class="row">
-                                <div class="col s4 offset-s4">
+                                <div class="col s4"><a href="/view/{{goal_id}}"><button class="btn" style="margin-left: 10%">View</button></a></div>
+                                <div class="col s4">
                                 <p>Max Stake: {{max_wager}}</p>
                                 </div>
+                                <div class="col s4"></div>
                             </div>
                         </div>
                     <div class="col s2"></div>
@@ -73,12 +79,13 @@
                             </div>
                             <div class="row">
                                 <div class="col s4">
-                                <p>Your stake: {{wager_amount}}</p>
+                                <a href="/view/{{goal_id}}"><button class="btn" style="margin-left: 10%">View</button></a>
                                 </div>
                                 <div class="col s4">
+                                    
+                                    <p>Your stake: {{wager_amount}}</p>
                                 </div>
                                 <div class="col s4">
-                                <button class="btn" style="float:right"><span id="follow"> Follow</span></button>
                                 </div>
                             </div>
                         </div>
@@ -96,7 +103,7 @@
                     <div class="col s2"></div>
                         <div class="card-panel col s8">
                             <div class="row">
-                                    <img class="materialboxed" src="https://robohash.org/{{user_id}}png?bgset=bg2&size=185x185" id="info">
+                                    <img class="materialboxed" src="https://robohash.org/{{user_id}}png?bgset=bg2&size=120x120" id="info">
                             <p style="float: left">
                                 <ul>
                                     <li><i><span id="username">{{user}}</span></i></li>
@@ -119,4 +126,21 @@
     {{/each}}
         </div>
 
+</div>
+
+
+<div id="modal2" class="modal">
+        <div class="modal-content">
+          <h5>You added 500 credits to your account!</h5><br><br>
+          <div class="row">
+                <p>
+                 Your new balance is <b><span id="bal"></span></b>
+                </p>
+            </div>
+        </div>
+        <div class="modal-footer">
+        <form action = "/myaccount" method = "POST" id="updateBal">
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="document.getElementById('updateBal').submit()">Close</a>
+          </form>
+        </div>
 </div>

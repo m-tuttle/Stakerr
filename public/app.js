@@ -42,6 +42,7 @@ var raised;
 var account;
 
 
+
 $(".buyIn").on("click", function () {
     var bet = parseInt($("#stk").val());
     var remaining = max - raised - bet;
@@ -74,7 +75,7 @@ $(".buyIn").on("click", function () {
 })
 
 
-
+var loggedIn = false;
 // Modal activation
 
 $(document).ready(function () {
@@ -82,7 +83,13 @@ $(document).ready(function () {
     $('.carousel').carousel();
     max = parseInt($("#maxWager").text());
     raised = parseInt($("#raised").text());
-    account = parseInt($("#balanceAmount").text());
+    var loggedIn = parseInt($("#account").text());
+    var balance = parseInt($("#account").text()) + 500;
+    $("#account, #balanceAmount").text(balance);
+    
+    // if (!loggedIn) {
+    //     $("#account").text(balance);
+    // }
     console.log(max);
     console.log(raised);
     console.log(account);
@@ -95,6 +102,21 @@ $(document).ready(function () {
         else {
             $(".modal-trigger").attr("data-target", "modal1");
             $('#modal1').modal();
+        }
+    })
+    
+    $("#mdl2").on("click", function() {
+        $("#bal").text()
+        if (parseInt($("#blnce").text()) !== loggedIn) {
+            alert("You may only add funds once per session.")
+            $("#account").text(balance);
+        }
+        else {
+            loggedIn = true; 
+            $(".modal-trigger").attr("data-target", "modal2");
+            $("#modal2").modal();
+            $("#bal, #account").text(balance);
+            
         }
     })
 
