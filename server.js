@@ -69,10 +69,12 @@ app.get("/contact", function (req, res) {
 app.get("/", function (req, res) {
 
     if (req.session.logged_in) {
-        var query = "SELECT u.user, g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, g.prog, g.follows FROM users u LEFT JOIN goals g ON u.id=g.user_id WHERE g.complete=0";
 
+        var query = "SELECT u.user, g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, g.prog, g.follows FROM users u LEFT JOIN goals g ON u.id=g.user_id WHERE g.complete=0";
+        
         connection.query(query, function (err, data) {
             if (err) throw err;
+
             for (var i=0; i<data.length; i++) {
                 if (data[i].user_following === 0) {
                     data[i].user_following = "Follow";
@@ -132,24 +134,19 @@ app.post("/follow/:goalid", function (req, res) {
                         if (err) throw err;
                             
                         if(data.length !== 0) {
-                            console.log(data);
                             var selection = data[goal-1];
-                            console.log(selection);
                             var second = Object.keys(selection)[1];
                             var tot = selection[second];
-                            console.log(tot);
 
                             var qry = "SELECT g.goal_id, g.user_id, g.user_following FROM goals g WHERE goal_id=" + goal + " AND user_id=" + user + "";
                             connection.query(qry, function(err, data) {
-                                console.log(qry);
-                                console.log(data);
                                 if (err) throw err;
                                 if (data.length === 0){
                                     var update = "UPDATE goals SET follows=" + tot + " WHERE goal_id=" + goal +"";
-                                    console.log(update);
                                     connection.query(update, function (err, data) {
                                     if (err) throw err;
                                     console.log("Successfully updated follows!")
+                                    res.redirect("/");
                                 })
                                 }
                                 });
@@ -160,7 +157,7 @@ app.post("/follow/:goalid", function (req, res) {
         else {
             alert("You are already following this goal.");
             console.log("You are already following this goal.");
-            
+            res.redirect("/");
         }
     
         })
@@ -245,7 +242,6 @@ app.post("/create", function (req, res) {
         var goal_end = new Date();
         goal_end.setHours(req.body.goal_end.split(":")[0], req.body.goal_end.split(":")[1]);
     }
-    console.log(goal_end);
     connection.query(query,
         {
             "user_id": req.session.user_id,
@@ -381,6 +377,8 @@ app.post("/userlogin", function (req, res) {
             req.session.user_id = data[0].id;
             req.session.credits = data[0].credits;
             app.locals.userBalance = req.session.credits;
+            app.locals.userPic = req.session.user_id;
+            app.locals.userName = data[0].user;
             res.redirect("/");
             } else {
             res.redirect("/login");
