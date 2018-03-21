@@ -1,20 +1,3 @@
-// Random quote generator
-
-// var express = require('express');
-// var router  = express.Router();
-
-var query = "https://talaikis.com/api/quotes/random/";
-
-$.ajax({
-    url: query,
-    method: "GET"
-}).then(function (response) {
-    $("#quote").text(response.quote);
-    $("#author").text(response.author)
-})
-
-var selected;
-
 // Stake logic
 
 var updateProg = function () {
@@ -41,7 +24,6 @@ var raised;
 var account;
 
 
-
 $(".buyIn").on("click", function () {
     var bet = parseInt($("#stk").val());
     account = parseInt($("#ubal").text());
@@ -51,7 +33,6 @@ $(".buyIn").on("click", function () {
         account -= bet;
         raised += bet;
         checkProg();
-        Materialize.toast('Stake successfully placed!', 4000)
         $.post("/stake/create",
             {
                 "wager_amount": bet,
@@ -62,6 +43,12 @@ $(".buyIn").on("click", function () {
             function (err, res) {
                 if (err) throw err;
             })
+        if (remaining > 0) {
+            Materialize.toast('Stake successfully placed!', 4000)
+        }
+        else {
+            Materialize.toast('Stake filled!', 4000)
+        }
     }
     else if (bet <= 0) {
         Materialize.toast('Please enter a valid amount.', 4000);
