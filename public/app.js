@@ -53,7 +53,7 @@ $(".buyIn").on("click", function () {
     else if (bet <= 0) {
         Materialize.toast('Please enter a valid amount.', 4000);
     }
-    else if (remaining < 0) {
+    else if (remaining <= 0) {
         remaining = max - raised;
         Materialize.toast('Invalid Amount! Only ' + remaining + ' available left to stake.', 4000)
     }

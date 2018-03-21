@@ -1,5 +1,6 @@
 // dependencies
 var express = require("express");
+var path = require('path');
 var bodyParser = require("body-parser");
 var connection = require("./config/connection.js");
 var alert = require("alert-node");
