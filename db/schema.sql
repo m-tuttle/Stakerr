@@ -1,3 +1,5 @@
+-- HEROKU MYSQL LOGIN mysql -h ixqxr3ajmyapuwmi.cbetxkdyhwsb.us-east-1.rds.amazonaws.com -ujifoxptigfyrkjvz -mrm16dj9gwnim8j1
+
 DROP DATABASE IF EXISTS project_db;
 CREATE DATABASE project_db;
 
