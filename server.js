@@ -154,7 +154,7 @@ app.post("/follow/:goalid", function (req, res) {
         else {
             alert("You are already following this goal.");
             console.log("You are already following this goal.");
-            res.redirect("/");
+            // res.redirect("/");
         }
     
         })
