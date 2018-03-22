@@ -3,7 +3,7 @@
     {{#each goals}}
         <div class="row"> 
         <div class="col s2"></div>
-            <div class="card-panel col s8">
+            <div class="card-panel col s8" id="goalCard">
                 <div class="row">
                 <img class="materialboxed" src="https://robohash.org/{{user_id}}png?bgset=bg2&size=120x120" id="info">
                 <p style="float: left">
@@ -37,3 +37,11 @@
     </div>
     {{/each}}
    
+   <style>
+
+       #goalCard {
+box-shadow: -12px 11px 36px 8px rgba(0,0,0,0.56);
+                        color: white;
+                        background-color: #596D78;
+       }
+   </style>
