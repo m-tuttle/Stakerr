@@ -89,7 +89,7 @@ app.get("/", function (req, res) {
 
 app.post("/follow/:goalid", function (req, res) {
 
-    var goal = req.originalUrl.slice(-1);
+    var goal = req.body.goalid;
     
     var user = req.session.user_id;
 

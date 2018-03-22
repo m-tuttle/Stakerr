@@ -28,7 +28,8 @@
                     </div>
                     <div class="col s4">
                         <form action = "/follow/{{goal_id}}" method = "POST">
-                        <button class="btn interaction" style="float:right" data-num="{{goal_id}}"><span id="follow">{{user_following}}</span></button>
+                        <input type="hidden" name="goalid" value={{goal_id}}>
+                        <button class="btn interaction" style="float:right" data-num={{goal_id}}><span id="follow">{{user_following}}</span></button>
                         </form>
                     </div>
                 </div>
