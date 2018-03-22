@@ -4,10 +4,10 @@ var path = require('path');
 var bodyParser = require("body-parser");
 var connection = require("./config/connection.js");
 var alert = require("alert-node");
-var jsdom = require("jsdom");
-var { JSDOM } = jsdom;
-var { window } = new JSDOM(`<!DOCTYPE html>`);
-var $ = require('jQuery')(window);
+// var jsdom = require("jsdom");
+// var { JSDOM } = jsdom;
+// var { window } = new JSDOM(`<!DOCTYPE html>`);
+// var $ = require('jquery')(window);
 
 var app = module.exports = express();
 
