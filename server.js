@@ -68,20 +68,40 @@ app.get("/", function (req, res) {
     if (req.session.logged_in) {
 
         var query = "SELECT u.user, g.user_id, g.goal_id, g.goal_text, g.goal_end, g.raised, g.max_wager, g.user_following, g.prog, g.follows FROM users u LEFT JOIN goals g ON u.id=g.user_id WHERE g.complete=0";
+
+        var folque = "SELECT * FROM fol f where f.user_id=" + req.session.user_id + "";
+
+        var userFolo = [];
+
+        connection.query(folque, function (err, data) {
+            for (var i=0; i < data.length; i++) {
+                userFolo.push(data[i].goal_id);
+            }
+        })
         
         connection.query(query, function (err, data) {
             if (err) throw err;
-
+            
             for (var i=0; i<data.length; i++) {
-                if (data[i].user_following === 0) {
-                    data[i].user_following = "Follow";
-                }
+                
+                    if (userFolo.includes(data[i].goal_id)) {
+                        data[i].user_following = "Followed";
+                    }
+                    else {
+                        data[i].user_following = "Follow"
+                    }
+
             }
+            
+                
+            
             res.render("goalsfeed", { "goals": data });
         })
-    } else {
+        }
+    
+        else {
         res.redirect("/login");
-    }
+        }
 })
 
 // feed following post route
@@ -96,17 +116,14 @@ app.post("/follow/:goalid", function (req, res) {
     var query = "SELECT f.fol, f.user_id, f.goal_id, f.total FROM fol f WHERE user_id=" + user + " AND goal_id=" + goal + "";
 
     var folsquery = "SELECT * FROM fol f WHERE goal_id=" + goal + "";
-    
-    var fols;
 
     connection.query(folsquery, function (err, data) {
         if (err) throw err;
+       
         if (data.length !== 0) {
-        fols = data[0].total;
-        console.log(fols + " following");
+        console.log("This goal has followers");
         }
         else {
-            fols = 0;
             console.log("No follows for this goal yet.")
         }
     })
@@ -129,7 +146,7 @@ app.post("/follow/:goalid", function (req, res) {
 
                     connection.query(follow, function(err, data) {
                         if (err) throw err;
-                            
+                        
                         if(data.length !== 0) {
                             var selection = data[goal-1];
                             var second = Object.keys(selection)[1];
