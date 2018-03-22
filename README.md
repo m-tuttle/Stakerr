@@ -1,11 +1,11 @@
 # Stakerr
 
 ### Team Members
-* Mike Binder
+* Mike Binder<br>
 https://github.com/mikebinder<br>
-* Mike Tuttle
+* Mike Tuttle<br>
 https://github.com/m-tuttle<br>
-* Jeremy Stepanovich
+* Jeremy Stepanovich<br>
 https://github.com/jstep1<br>
 
 ### Project Description
