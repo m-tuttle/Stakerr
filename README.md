@@ -1,9 +1,12 @@
-# Project-two
+# Stakerr
 
 ### Team Members
-* Mike B.
-* Mike T.
-* Jeremy
+* Mike Binder
+https://github.com/mikebinder<br>
+* Mike Tuttle
+https://github.com/m-tuttle<br>
+* Jeremy Stepanovich
+https://github.com/jstep1<br>
 
 ### Project Description
 Web application that functions as a social media site for users to share goals and hold themselves accountable through user wagers.  
