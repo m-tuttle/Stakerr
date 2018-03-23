@@ -146,9 +146,18 @@ app.post("/follow/:goalid", function (req, res) {
 
                     connection.query(follow, function(err, data) {
                         if (err) throw err;
+
+                        console.log(data);
                         
                         if(data.length !== 0) {
-                            var selection = data[goal-1];
+                            var selection;
+                            if(data.length === 1){
+                                selection = data[0];
+                            }
+                            else {
+                                selection = data[goal-1];
+                            }
+
                             var second = Object.keys(selection)[1];
                             var tot = selection[second];
 
@@ -169,7 +178,7 @@ app.post("/follow/:goalid", function (req, res) {
                     })}
                 
         else {
-            alert("You are already following this goal.");
+            alert("You are already following this goal.")
             console.log("You are already following this goal.");
             res.redirect("/");
         }

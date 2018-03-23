@@ -103,6 +103,9 @@ $(document).ready(function () {
         
     })
 
+        
+           
+
 });
 
 
@@ -135,7 +138,7 @@ $("#mdl1").on("click", function () {
     $("#modalGoalEnd").text($("#timeframeEntry").val());
 })
 
-$(document).on("click", "#follow", function() {
+$(document).on("click", "#mod1", function() {
 
     $(this).html("<i class='material-icons'>check</i>")
 
