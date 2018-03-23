@@ -15,13 +15,17 @@
     <div class="container-fluid">
 	<div class="navbar-fixed">
             <nav id="stakerr">
-                <div class="nav-wrapper teal">
+                <div class="nav-wrapper teal" id="mresp">
                     <a href="/" class="brand-logo">Stakerr</a>
                         <ul class="right hide-on-small-and-down">
                         <li><a href="/">Home</a></li>
                         <li><a href="/myaccount">My Account</a></li>
                         <li><a id="logout" href="/logout">Logout</a></li>
                         </ul>
+                </div>
+                <div class="nav-wrapper teal mr">
+                <a href="/" class="brand-logo">Stakerr</a>
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 </div>
             </nav>
     </div>
@@ -74,7 +78,9 @@
             if (!{{toggle}}) {
             $(".update").empty();
             $(".right").empty();
-            }});
+            }
+
+            });
         
 
 </script>
