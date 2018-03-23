@@ -19,6 +19,7 @@
                 <div class="card-action">
                     <div class="input-field inline">
                     <form action = "/follow/{{view.goal_id}}" method = "POST" id="flw">
+                    <input type="hidden" name="goalid" value={{view.goal_id}}>
                     <a href="#" class="waves-effect waves-light teal-text interaction" onclick="document.getElementById('flw').submit()"><span id="follow">Follow</span></a>
                     </form>
                     </div>

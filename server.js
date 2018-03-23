@@ -374,9 +374,10 @@ app.post("/stake/create", function (req, res) {
     res.send();
 })
 
-
+app.locals.toggle = false;
 // logout page
 app.get("/logout", function(req, res) {
+    app.locals.toggle = false;
     res.render("logout");
     
 })
@@ -384,12 +385,14 @@ app.get("/logout", function(req, res) {
 
 // login page
 app.get("/login", function (req, res) {
+    
     res.render("login")
 })
 
 
 // user loggin in
 app.post("/userlogin", function (req, res) {
+    app.locals.toggle = true;
     var query = "SELECT * FROM users WHERE user=?";
 
     connection.query(query, [req.body.user], function (err, data) {
