@@ -33,3 +33,46 @@ p {
     text-align: center;
     color: #8c8c8c
 }
+
+.mr {
+    display: none;
+}
+
+#logoutpage {
+    max-width:40%;
+    margin-left:30%;
+    margin-top: 35px;
+    align-content: center;
+    background-color: #596D78;
+    padding: 20px;
+    box-shadow: -12px 11px 36px 8px rgba(0,0,0,0.56);
+    color: white;
+}
+
+#goalCard {
+    box-shadow: -12px 11px 36px 8px rgba(0,0,0,0.56);
+    color: white;
+    background-color: #596D78;
+           }
+
+@media screen and (max-width: 600px) {
+    #info {
+        width: 95%;
+        margin-bottom: 10% 
+    }
+    #feedView, #feedFollow, {
+        display: inline-block;
+        width: auto;
+        float: none
+    }
+    .mr {
+        display: block
+    }
+    #mresp {
+        display: none
+    }
+    #smallscreen {
+        display: inline-block
+    }
+  
+}

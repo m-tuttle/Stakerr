@@ -16,33 +16,37 @@
                 </p>
                 </div>
                 
-                <div class="row">
+                <div class="row" id="mresp">
                     <div class="col s4">
-                    <a href="/view/{{goal_id}}"><button class="btn" style="margin-left: 10%">View</button></a>
+                    <a href="/view/{{goal_id}}"><button class="btn" style="margin-left: 10%" id="feedView">View</button></a>
+                    </div><br class="mr"><br class="mr"><br class="mr">
+                    <div class="col s4" id="midView">
+                            <div class="progress">
+                                    <div class="determinate" id="progressBar" style="width: {{prog}}%"></div>
+                            </div>
+                            <p class="center-align teal-text"><span id="prgsFeed">{{raised}} / {{max_wager}}</span></p>
+                    </div><br class="mr"><br class="mr"><br class="mr">
+                    <div class="col s4">
+                        <form action = "/follow/{{goal_id}}" method = "POST">
+                        <input type="hidden" name="goalid" value={{goal_id}}>
+                        <button class="btn interaction" style="float:right" data-num={{goal_id}} id="feedFollow"><span id="follow">{{user_following}}</span></button></a>
+                        </form>
                     </div>
-                    <div class="col s4">
+                </div>
+
+                {{!-- Mobile Responsiveness --}}
+
+                <div class="row">
+                    <div class="col s12 mr" id="midView">
                             <div class="progress">
                                     <div class="determinate" id="progressBar" style="width: {{prog}}%"></div>
                             </div>
                             <p class="center-align teal-text"><span id="prgsFeed">{{raised}} / {{max_wager}}</span></p>
                     </div>
-                    <div class="col s4">
-                        <form action = "/follow/{{goal_id}}" method = "POST">
-                        <input type="hidden" name="goalid" value={{goal_id}}>
-                        <button class="btn interaction" style="float:right" data-num={{goal_id}}><span id="follow">{{user_following}}</span></button></a>
-                        </form>
-                    </div>
                 </div>
+
             </div>
         <div class="col s2"></div>
     </div>
     {{/each}}
    
-   <style>
-
-       #goalCard {
-box-shadow: -12px 11px 36px 8px rgba(0,0,0,0.56);
-                        color: white;
-                        background-color: #596D78;
-       }
-   </style>
