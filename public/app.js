@@ -10,8 +10,7 @@ var updateProg = function () {
 var checkProg = function () {
     if (raised < max) {
         updateProg();
-    }
-    else {
+    } else {
         updateProg();
         $("#progressBarView").attr("style", "width:100%");
         $("#prgsView").text("Complete!");
@@ -33,8 +32,7 @@ $(".buyIn").on("click", function () {
         account -= bet;
         raised += bet;
         checkProg();
-        $.post("/stake/create",
-            {
+        $.post("/stake/create", {
                 "wager_amount": bet,
                 "goal_id": $(".buyIn").attr("data-goal"),
                 "credits": account,
@@ -45,19 +43,15 @@ $(".buyIn").on("click", function () {
             })
         if (remaining > 0) {
             Materialize.toast('Stake successfully placed!', 4000)
-        }
-        else {
+        } else {
             Materialize.toast('Stake filled!', 4000)
         }
-    }
-    else if (bet <= 0) {
+    } else if (bet <= 0) {
         Materialize.toast('Please enter a valid amount.', 4000);
-    }
-    else if (remaining <= 0) {
+    } else if (remaining <= 0) {
         remaining = max - raised;
         Materialize.toast('Invalid Amount! Only ' + remaining + ' available left to stake.', 4000)
-    }
-    else {
+    } else {
         Materialize.toast('Insufficient Funds', 4000)
     }
 })
@@ -71,13 +65,13 @@ $(document).ready(function () {
     max = parseInt($("#maxWager").text());
     raised = parseInt($("#raised").text());
 
-    if($("#go").text() === "") {
+    if ($("#go").text() === "") {
         $("#goals").append("<p>Add some goals!</p>");
     }
-    if($("#st").text() === "") {
+    if ($("#st").text() === "") {
         $("#stakes").append("<p>Make your stake!</p>");
     }
-    if($("#fo").text() === "") {
+    if ($("#fo").text() === "") {
         $("#folo").append("<p>Go find some cool goals.</p>");
     }
 
@@ -88,23 +82,22 @@ $(document).ready(function () {
         if ($("#stake").val() > max) {
             $(".modal-trigger").attr("data-target", "modal3");
             $('#modal3').modal();
-        }
-        else {
+        } else {
             $(".modal-trigger").attr("data-target", "modal1");
             $('#modal1').modal();
         }
     })
-    
-    $("#mdl2").on("click", function() {
-        
-            $(".modal-trigger").attr("data-target", "modal2");
-            $("#modal2").modal();
-            
-        
+
+    $("#mdl2").on("click", function () {
+
+        $(".modal-trigger").attr("data-target", "modal2");
+        $("#modal2").modal();
+
+
     })
 
-        
-           
+
+
 
 });
 
@@ -118,8 +111,7 @@ $("#shortTerm, #longTerm").on("click", function () {
     $("#timeframe").text(this.text);
     if (this.text === "Long Term") {
         $("#timeframeEntry").attr("type", "date")
-    }
-    else {
+    } else {
         $("#timeframeEntry").attr("type", "time")
     }
 })
@@ -138,9 +130,8 @@ $("#mdl1").on("click", function () {
     $("#modalGoalEnd").text($("#timeframeEntry").val());
 })
 
-$(document).on("click", "#mod1", function() {
+$(document).on("click", "#mod1", function () {
 
     $(this).html("<i class='material-icons'>check</i>")
 
 })
-
